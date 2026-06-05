@@ -133,7 +133,7 @@ Cumpre **condicionais, laços e manipulação de dados** com Pandas.
 - **`generate_simulation.py`** — gera leituras de N nós ESP32 com laços/condicionais. Nós perto
   de focos e com baixa umidade produzem leituras altas; demais, leituras normais. Rotula o
   **ground truth** por **regra física** (muito gás + alta temp + baixa umidade + perto de foco
-  = Crítico), para o modelo aprender a generalizar.
+  + vento forte = Crítico), para o modelo aprender a generalizar.
 - **Detecção de outlier (Pandas):** média móvel temporal por dispositivo. Salto isolado
   (ex.: 25 °C → 150 °C em 1 s, sem fumaça nem confirmação de vizinhos) é marcado como sensor
   defeituoso e descartado, evitando alarme falso.
