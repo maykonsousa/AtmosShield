@@ -29,8 +29,8 @@
     "umidade_ar": 18.8,
     "ppm_fumaca": 432.4,
     "densidade_focos": 3,
-    "risco": 2,
-    "risco_label": "Critico"
+    "risco": 1,
+    "risco_label": "Moderado"
   },
   {
     "device_id": "ESP32-SIM-003",
@@ -95,8 +95,8 @@
     "umidade_ar": 28.1,
     "ppm_fumaca": 243.4,
     "densidade_focos": 3,
-    "risco": 1,
-    "risco_label": "Moderado"
+    "risco": 2,
+    "risco_label": "Critico"
   },
   {
     "device_id": "ESP32-SIM-009",
@@ -315,8 +315,8 @@
     "umidade_ar": 21.4,
     "ppm_fumaca": 308.9,
     "densidade_focos": 1,
-    "risco": 1,
-    "risco_label": "Moderado"
+    "risco": 2,
+    "risco_label": "Critico"
   },
   {
     "device_id": "ESP32-SIM-029",
@@ -359,8 +359,8 @@
     "umidade_ar": 25.8,
     "ppm_fumaca": 323.0,
     "densidade_focos": 1,
-    "risco": 1,
-    "risco_label": "Moderado"
+    "risco": 2,
+    "risco_label": "Critico"
   },
   {
     "device_id": "ESP32-SIM-033",
@@ -557,8 +557,8 @@
     "umidade_ar": 19.6,
     "ppm_fumaca": 370.3,
     "densidade_focos": 3,
-    "risco": 1,
-    "risco_label": "Moderado"
+    "risco": 2,
+    "risco_label": "Critico"
   },
   {
     "device_id": "ESP32-SIM-051",
@@ -579,8 +579,8 @@
     "umidade_ar": 21.7,
     "ppm_fumaca": 299.5,
     "densidade_focos": 2,
-    "risco": 1,
-    "risco_label": "Moderado"
+    "risco": 2,
+    "risco_label": "Critico"
   },
   {
     "device_id": "ESP32-SIM-053",
@@ -711,8 +711,8 @@
     "umidade_ar": 26.3,
     "ppm_fumaca": 489.3,
     "densidade_focos": 1,
-    "risco": 2,
-    "risco_label": "Critico"
+    "risco": 1,
+    "risco_label": "Moderado"
   },
   {
     "device_id": "ESP32-SIM-065",
@@ -799,8 +799,8 @@
     "umidade_ar": 23.9,
     "ppm_fumaca": 304.6,
     "densidade_focos": 2,
-    "risco": 1,
-    "risco_label": "Moderado"
+    "risco": 2,
+    "risco_label": "Critico"
   },
   {
     "device_id": "ESP32-SIM-073",
@@ -821,8 +821,8 @@
     "umidade_ar": 13.4,
     "ppm_fumaca": 457.4,
     "densidade_focos": 2,
-    "risco": 2,
-    "risco_label": "Critico"
+    "risco": 1,
+    "risco_label": "Moderado"
   },
   {
     "device_id": "ESP32-SIM-075",
