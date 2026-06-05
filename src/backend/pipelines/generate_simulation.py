@@ -41,7 +41,7 @@ def generate_readings(focos_df: pd.DataFrame, n_nodes: int = 40, seed: int = 42)
         )
     df = build_features(pd.DataFrame(rows), focos, radius_km=10.0)
     df["risco"] = df.apply(
-        lambda r: label_risk(r["temperatura"], r["umidade_ar"], r["ppm_fumaca"], r["dist_foco_km"]), axis=1
+        lambda r: label_risk(r["temperatura"], r["umidade_ar"], r["ppm_fumaca"], r["dist_foco_km"], r["vento_kmh"]), axis=1
     )
     return df
 
