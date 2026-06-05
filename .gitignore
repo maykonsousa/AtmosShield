@@ -1,3 +1,6 @@
 docs/braimstorming.md
 docs/atividade.md
 .venv/
+__pycache__/
+*.pyc
+*.pyo
