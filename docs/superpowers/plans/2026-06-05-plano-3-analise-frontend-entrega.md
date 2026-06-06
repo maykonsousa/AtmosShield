@@ -406,11 +406,10 @@ git commit -m "feat: GET /stats + filtro ?risco em /alerts + init no lifespan"
 ## FIAP — Global Solution 2026.1
 
 ### 👨‍🎓 Integrantes
-- <NOME DO INTEGRANTE 1>
-- <NOME DO INTEGRANTE 2>
-- <NOME DO INTEGRANTE 3>
-- <NOME DO INTEGRANTE 4>
-- <NOME DO INTEGRANTE 5>
+- Matheus de França Fantini
+- Maykon Eduardo Pereira de Sousa
+- Heleno Madeira Pereira
+- Samantha Silva Farias
 
 > **QUERO CONCORRER**
 
