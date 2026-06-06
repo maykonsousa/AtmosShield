@@ -12,6 +12,7 @@ METRICS_PATH = ARTIFACT_DIR / "metrics.json"
 DATA_DIR = REPO_ROOT / "data"
 FOCOS_CSV = DATA_DIR / "inpe_focos_sample.csv"
 ALERTS_JSON = DATA_DIR / "alerts.json"
+IMAGES_DIR = REPO_ROOT / "docs" / "images"
 
 DEFAULT_DB_PATH = DATA_DIR / "atmosshield.db"
 
