@@ -4,3 +4,4 @@ docs/atividade.md
 __pycache__/
 *.pyc
 *.pyo
+*.db
