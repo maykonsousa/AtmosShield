@@ -1,15 +1,12 @@
 """Inferência em lote: classifica leituras e escreve data/alerts.json."""
 import json
-from pathlib import Path
 
 import joblib
 import pandas as pd
 
 from src.backend.ml.features import FEATURE_COLUMNS
 from src.backend.ml.risk_rules import RISK_LABELS
-
-ALERTS_PATH = Path("data/alerts.json")
-MODEL_PATH = Path("src/backend/ml/artifacts/risk_model.joblib")
+from src.backend.config import ALERTS_JSON as ALERTS_PATH, MODEL_PATH, FOCOS_CSV
 
 
 def run_batch(model, df: pd.DataFrame) -> list[dict]:
@@ -39,7 +36,7 @@ def main() -> None:
     from src.backend.pipelines.ingest_inpe import load_inpe
 
     model = joblib.load(MODEL_PATH)
-    focos = load_inpe("data/inpe_focos_sample.csv")
+    focos = load_inpe(str(FOCOS_CSV))
     df = generate_readings(focos, n_nodes=80, seed=99)
     alerts = run_batch(model, df)
     ALERTS_PATH.write_text(json.dumps(alerts, indent=2, ensure_ascii=False))
