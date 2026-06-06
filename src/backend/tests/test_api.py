@@ -50,3 +50,14 @@ def test_post_reading_detecta_outlier(client):
     spike = {**base, "leitura": {"temperatura": 150.0, "umidade_ar": 50.0, "ppm_fumaca": 45.0}}
     r = client.post("/readings", json=spike)
     assert r.json()["is_outlier"] is True
+
+
+def test_get_alerts_inclui_leitura_postada(client):
+    client.post("/readings", json=VALID)
+    r = client.get("/alerts")
+    assert r.status_code == 200
+    arr = r.json()
+    assert isinstance(arr, list)
+    assert len(arr) >= 1
+    assert any(a["device_id"] == "ESP32-PRIV-092" for a in arr)
+    assert isinstance(arr[0]["is_outlier"], bool)
