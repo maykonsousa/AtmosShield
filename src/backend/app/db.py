@@ -53,9 +53,21 @@ def insert_reading(conn: sqlite3.Connection, alert: dict) -> int:
     return cur.lastrowid
 
 
-def fetch_recent(conn: sqlite3.Connection, limit: int = 100) -> list[dict]:
-    cur = conn.execute("SELECT * FROM readings ORDER BY id DESC LIMIT ?", (limit,))
+def fetch_recent(conn: sqlite3.Connection, limit: int = 100, risco: int | None = None) -> list[dict]:
+    if risco is None:
+        cur = conn.execute("SELECT * FROM readings ORDER BY id DESC LIMIT ?", (limit,))
+    else:
+        cur = conn.execute(
+            "SELECT * FROM readings WHERE risco = ? ORDER BY id DESC LIMIT ?", (risco, limit)
+        )
     return [dict(r) for r in cur.fetchall()]
+
+
+def stats_by_risk(conn: sqlite3.Connection) -> dict:
+    cur = conn.execute("SELECT risco_label, COUNT(*) AS c FROM readings GROUP BY risco_label")
+    por_risco = {row["risco_label"]: row["c"] for row in cur.fetchall()}
+    outliers = conn.execute("SELECT COUNT(*) AS c FROM readings WHERE is_outlier = 1").fetchone()["c"]
+    return {"por_risco": por_risco, "total": sum(por_risco.values()), "outliers": outliers}
 
 
 def last_reading_for_device(conn: sqlite3.Connection, device_id: str):

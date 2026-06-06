@@ -3,10 +3,9 @@ from src.backend.app import db
 
 
 def get_db():
-    """Fornece uma conexão SQLite por request, criando o schema se necessário."""
+    """Fornece uma conexão SQLite por request (o schema é criado no lifespan da app)."""
     conn = db.get_conn()
     try:
-        db.init_db(conn)
         yield conn
     finally:
         conn.close()

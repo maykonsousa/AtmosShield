@@ -61,3 +61,20 @@ def test_get_alerts_inclui_leitura_postada(client):
     assert len(arr) >= 1
     assert any(a["device_id"] == "ESP32-PRIV-092" for a in arr)
     assert isinstance(arr[0]["is_outlier"], bool)
+
+
+def test_get_stats(client):
+    client.post("/readings", json=VALID)
+    r = client.get("/stats")
+    assert r.status_code == 200
+    body = r.json()
+    assert "por_risco" in body and "total" in body and "outliers" in body
+    assert body["total"] >= 1
+
+
+def test_get_alerts_filtra_por_risco(client):
+    client.post("/readings", json=VALID)  # leitura quente => Critico (risco 2)
+    r = client.get("/alerts", params={"risco": 2})
+    assert r.status_code == 200
+    arr = r.json()
+    assert all(a["risco"] == 2 for a in arr)

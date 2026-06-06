@@ -9,8 +9,8 @@ router = APIRouter()
 
 
 @router.get("/alerts", response_model=list[RiskAlertOut])
-def get_alerts(conn=Depends(get_db)):
-    rows = db.fetch_recent(conn, limit=100)
+def get_alerts(risco: int | None = None, conn=Depends(get_db)):
+    rows = db.fetch_recent(conn, limit=100, risco=risco)
     alerts = []
     for r in rows:
         d = dict(r)
