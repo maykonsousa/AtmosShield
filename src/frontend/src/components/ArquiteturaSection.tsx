@@ -1,3 +1,6 @@
+"use client";
+import { Reveal, StaggerContainer, StaggerItem } from "./Reveal";
+
 const archNodes = [
   {
     id: "satellite",
@@ -75,7 +78,7 @@ export default function ArquiteturaSection() {
 
       <div className="max-w-6xl mx-auto px-6">
         {/* Section header */}
-        <div className="mb-16">
+        <Reveal className="mb-16">
           <p
             className="text-orange-500 mb-3 tracking-widest"
             style={{ fontFamily: "var(--font-share-mono)", fontSize: "0.7rem" }}
@@ -93,287 +96,301 @@ export default function ArquiteturaSection() {
             ARQUITETURA
           </h2>
           <div className="section-divider mt-4 max-w-xs" />
-        </div>
+        </Reveal>
 
         {/* Architecture diagram */}
-        <div
-          className="p-8 lg:p-12 relative"
-          style={{
-            background: "rgba(10,11,13,0.9)",
-            border: "1px solid rgba(255,255,255,0.05)",
-          }}
-        >
-          {/* Diagram label */}
+        <Reveal>
           <div
-            className="absolute top-3 left-4 flex items-center gap-2"
+            className="p-8 lg:p-12 relative"
             style={{
-              fontFamily: "var(--font-share-mono)",
-              fontSize: "0.6rem",
-              letterSpacing: "0.12em",
-              color: "#334155",
+              background: "rgba(10,11,13,0.9)",
+              border: "1px solid rgba(255,255,255,0.05)",
             }}
           >
-            <span className="w-2 h-2 rounded-full bg-slate-600" />
-            FLUXO DE DADOS · TEMPO REAL
-          </div>
-
-          {/* Top row: Input sources */}
-          <div className="mb-6">
-            <p
-              className="text-center mb-4"
+            {/* Diagram label */}
+            <div
+              className="absolute top-3 left-4 flex items-center gap-2"
               style={{
                 fontFamily: "var(--font-share-mono)",
                 fontSize: "0.6rem",
-                letterSpacing: "0.15em",
-                color: "#475569",
+                letterSpacing: "0.12em",
+                color: "#334155",
               }}
             >
-              FONTES DE DADOS
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto">
-              {archNodes.map((node) => (
-                <div
-                  key={node.id}
-                  className="arch-node p-5 flex flex-col items-center text-center gap-2"
-                >
-                  <div style={{ color: node.color }}>{node.icon}</div>
-                  <div>
-                    <div
-                      style={{
-                        fontFamily: "var(--font-bebas)",
-                        fontSize: "1rem",
-                        color: "white",
-                        letterSpacing: "0.1em",
-                      }}
-                    >
-                      {node.label}
-                    </div>
-                    <div
-                      style={{
-                        fontFamily: "var(--font-share-mono)",
-                        fontSize: "0.6rem",
-                        color: node.color,
-                        letterSpacing: "0.08em",
-                      }}
-                    >
-                      {node.sublabel}
-                    </div>
-                  </div>
-                  <p
-                    className="text-slate-500"
-                    style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.75rem" }}
-                  >
-                    {node.desc}
-                  </p>
-                </div>
-              ))}
+              <span className="w-2 h-2 rounded-full bg-slate-600" />
+              FLUXO DE DADOS · TEMPO REAL
             </div>
-          </div>
 
-          {/* Downward arrow */}
-          <div className="flex flex-col items-center mb-6">
-            <div
-              className="w-px h-8"
-              style={{ background: "linear-gradient(to bottom, rgba(249,115,22,0.5), rgba(249,115,22,0.2))" }}
-            />
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="rgba(249,115,22,0.6)">
-              <polygon points="5,10 0,0 10,0" />
-            </svg>
-          </div>
-
-          {/* Middle row: Processing */}
-          <div className="mb-6">
-            <p
-              className="text-center mb-4"
-              style={{
-                fontFamily: "var(--font-share-mono)",
-                fontSize: "0.6rem",
-                letterSpacing: "0.15em",
-                color: "#475569",
-              }}
-            >
-              PROCESSAMENTO
-            </p>
-            <div className="flex items-stretch gap-0 max-w-lg mx-auto">
-              {processingNodes.map((node, i) => (
-                <>
-                  <div
-                    key={node.id}
-                    className="arch-node flex-1 p-5 flex flex-col items-center text-center gap-2"
-                    style={{ borderColor: `${node.color}20` }}
-                  >
-                    <div style={{ color: node.color }}>{node.icon}</div>
-                    <div>
-                      <div
-                        style={{
-                          fontFamily: "var(--font-bebas)",
-                          fontSize: "0.9rem",
-                          color: "white",
-                          letterSpacing: "0.1em",
-                        }}
-                      >
-                        {node.label}
-                      </div>
-                      <div
-                        style={{
-                          fontFamily: "var(--font-share-mono)",
-                          fontSize: "0.6rem",
-                          color: node.color,
-                          letterSpacing: "0.08em",
-                        }}
-                      >
-                        {node.sublabel}
-                      </div>
-                    </div>
-                    <p
-                      className="text-slate-500"
-                      style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.72rem" }}
-                    >
-                      {node.desc}
-                    </p>
-                  </div>
-                  {i < processingNodes.length - 1 && (
-                    <div className="flex items-center px-3" key={`arrow-${i}`}>
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        stroke="rgba(249,115,22,0.5)"
-                        strokeWidth="1.5"
-                      >
-                        <path d="M3 8h10M9 4l4 4-4 4" />
-                      </svg>
-                    </div>
-                  )}
-                </>
-              ))}
-            </div>
-          </div>
-
-          {/* Downward arrow */}
-          <div className="flex flex-col items-center mb-6">
-            <div
-              className="w-px h-8"
-              style={{ background: "linear-gradient(to bottom, rgba(249,115,22,0.5), rgba(249,115,22,0.2))" }}
-            />
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="rgba(249,115,22,0.6)">
-              <polygon points="5,10 0,0 10,0" />
-            </svg>
-          </div>
-
-          {/* Output: Dashboard */}
-          <div>
-            <p
-              className="text-center mb-4"
-              style={{
-                fontFamily: "var(--font-share-mono)",
-                fontSize: "0.6rem",
-                letterSpacing: "0.15em",
-                color: "#475569",
-              }}
-            >
-              SAÍDA
-            </p>
-            <div
-              className="max-w-sm mx-auto p-6 text-center relative"
-              style={{
-                background: "rgba(249,115,22,0.05)",
-                border: "1px solid rgba(249,115,22,0.25)",
-                boxShadow: "0 0 40px rgba(249,115,22,0.08)",
-              }}
-            >
-              <div className="text-orange-500 flex justify-center mb-3">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
-                  <rect x="3" y="3" width="18" height="18" rx="2" />
-                  <path d="M3 9h18M9 21V9" />
-                  <path d="M13 13h4M13 17h4M7 13h2v4H7z" />
-                </svg>
-              </div>
-              <div
-                style={{
-                  fontFamily: "var(--font-bebas)",
-                  fontSize: "1.3rem",
-                  color: "white",
-                  letterSpacing: "0.12em",
-                }}
-              >
-                DASHBOARD
-              </div>
-              <div
+            {/* Top row: Input sources */}
+            <div className="mb-6">
+              <p
+                className="text-center mb-4"
                 style={{
                   fontFamily: "var(--font-share-mono)",
                   fontSize: "0.6rem",
-                  color: "#f97316",
-                  letterSpacing: "0.1em",
+                  letterSpacing: "0.15em",
+                  color: "#475569",
                 }}
               >
-                Next.js · Alertas em Tempo Real
-              </div>
-
-              {/* Alert badges */}
-              <div className="flex justify-center gap-2 mt-4">
-                {["BAIXO", "MODERADO", "CRÍTICO"].map((level, i) => (
-                  <span
-                    key={level}
-                    className={`px-2 py-0.5 text-xs ${
-                      i === 0 ? "risk-low" : i === 1 ? "risk-moderate" : "risk-critical"
-                    }`}
-                    style={{
-                      fontFamily: "var(--font-share-mono)",
-                      fontSize: "0.55rem",
-                      letterSpacing: "0.1em",
-                    }}
-                  >
-                    {level}
-                  </span>
+                FONTES DE DADOS
+              </p>
+              <StaggerContainer
+                className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto"
+                staggerDelay={0.12}
+              >
+                {archNodes.map((node) => (
+                  <StaggerItem key={node.id}>
+                    <div className="arch-node p-5 flex flex-col items-center text-center gap-2">
+                      <div style={{ color: node.color }}>{node.icon}</div>
+                      <div>
+                        <div
+                          style={{
+                            fontFamily: "var(--font-bebas)",
+                            fontSize: "1rem",
+                            color: "white",
+                            letterSpacing: "0.1em",
+                          }}
+                        >
+                          {node.label}
+                        </div>
+                        <div
+                          style={{
+                            fontFamily: "var(--font-share-mono)",
+                            fontSize: "0.6rem",
+                            color: node.color,
+                            letterSpacing: "0.08em",
+                          }}
+                        >
+                          {node.sublabel}
+                        </div>
+                      </div>
+                      <p
+                        className="text-slate-500"
+                        style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.75rem" }}
+                      >
+                        {node.desc}
+                      </p>
+                    </div>
+                  </StaggerItem>
                 ))}
+              </StaggerContainer>
+            </div>
+
+            {/* Downward arrow */}
+            <div className="flex flex-col items-center mb-6">
+              <div
+                className="w-px h-8"
+                style={{ background: "linear-gradient(to bottom, rgba(249,115,22,0.5), rgba(249,115,22,0.2))" }}
+              />
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="rgba(249,115,22,0.6)">
+                <polygon points="5,10 0,0 10,0" />
+              </svg>
+            </div>
+
+            {/* Middle row: Processing */}
+            <div className="mb-6">
+              <p
+                className="text-center mb-4"
+                style={{
+                  fontFamily: "var(--font-share-mono)",
+                  fontSize: "0.6rem",
+                  letterSpacing: "0.15em",
+                  color: "#475569",
+                }}
+              >
+                PROCESSAMENTO
+              </p>
+              <StaggerContainer
+                className="flex items-stretch gap-0 max-w-lg mx-auto"
+                staggerDelay={0.15}
+                delayStart={0.1}
+              >
+                {processingNodes.map((node, i) => (
+                  <>
+                    <StaggerItem key={node.id} className="flex-1">
+                      <div
+                        className="arch-node h-full p-5 flex flex-col items-center text-center gap-2"
+                        style={{ borderColor: `${node.color}20` }}
+                      >
+                        <div style={{ color: node.color }}>{node.icon}</div>
+                        <div>
+                          <div
+                            style={{
+                              fontFamily: "var(--font-bebas)",
+                              fontSize: "0.9rem",
+                              color: "white",
+                              letterSpacing: "0.1em",
+                            }}
+                          >
+                            {node.label}
+                          </div>
+                          <div
+                            style={{
+                              fontFamily: "var(--font-share-mono)",
+                              fontSize: "0.6rem",
+                              color: node.color,
+                              letterSpacing: "0.08em",
+                            }}
+                          >
+                            {node.sublabel}
+                          </div>
+                        </div>
+                        <p
+                          className="text-slate-500"
+                          style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.72rem" }}
+                        >
+                          {node.desc}
+                        </p>
+                      </div>
+                    </StaggerItem>
+                    {i < processingNodes.length - 1 && (
+                      <div className="flex items-center px-3" key={`arrow-${i}`}>
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          stroke="rgba(249,115,22,0.5)"
+                          strokeWidth="1.5"
+                        >
+                          <path d="M3 8h10M9 4l4 4-4 4" />
+                        </svg>
+                      </div>
+                    )}
+                  </>
+                ))}
+              </StaggerContainer>
+            </div>
+
+            {/* Downward arrow */}
+            <div className="flex flex-col items-center mb-6">
+              <div
+                className="w-px h-8"
+                style={{ background: "linear-gradient(to bottom, rgba(249,115,22,0.5), rgba(249,115,22,0.2))" }}
+              />
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="rgba(249,115,22,0.6)">
+                <polygon points="5,10 0,0 10,0" />
+              </svg>
+            </div>
+
+            {/* Output: Dashboard */}
+            <div>
+              <p
+                className="text-center mb-4"
+                style={{
+                  fontFamily: "var(--font-share-mono)",
+                  fontSize: "0.6rem",
+                  letterSpacing: "0.15em",
+                  color: "#475569",
+                }}
+              >
+                SAÍDA
+              </p>
+              <div
+                className="max-w-sm mx-auto p-6 text-center relative"
+                style={{
+                  background: "rgba(249,115,22,0.05)",
+                  border: "1px solid rgba(249,115,22,0.25)",
+                  boxShadow: "0 0 40px rgba(249,115,22,0.08)",
+                }}
+              >
+                <div className="text-orange-500 flex justify-center mb-3">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <path d="M3 9h18M9 21V9" />
+                    <path d="M13 13h4M13 17h4M7 13h2v4H7z" />
+                  </svg>
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-bebas)",
+                    fontSize: "1.3rem",
+                    color: "white",
+                    letterSpacing: "0.12em",
+                  }}
+                >
+                  DASHBOARD
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-share-mono)",
+                    fontSize: "0.6rem",
+                    color: "#f97316",
+                    letterSpacing: "0.1em",
+                  }}
+                >
+                  Next.js · Alertas em Tempo Real
+                </div>
+
+                {/* Alert badges */}
+                <div className="flex justify-center gap-2 mt-4">
+                  {["BAIXO", "MODERADO", "CRÍTICO"].map((level, i) => (
+                    <span
+                      key={level}
+                      className={`px-2 py-0.5 text-xs ${
+                        i === 0 ? "risk-low" : i === 1 ? "risk-moderate" : "risk-critical"
+                      }`}
+                      style={{
+                        fontFamily: "var(--font-share-mono)",
+                        fontSize: "0.55rem",
+                        letterSpacing: "0.1em",
+                      }}
+                    >
+                      {level}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </Reveal>
 
         {/* Architecture notes */}
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <StaggerContainer
+          className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4"
+          staggerDelay={0.1}
+          delayStart={0.05}
+        >
           {[
             { icon: "⚡", label: "Latência Total", value: "< 3 min" },
             { icon: "🔒", label: "Dados Offline", value: "Edge + Nuvem" },
             { icon: "📡", label: "Protocolo IoT", value: "MQTT / REST" },
           ].map((item) => (
-            <div
-              key={item.label}
-              className="flex items-center gap-4 p-4"
-              style={{
-                background: "rgba(255,255,255,0.02)",
-                border: "1px solid rgba(255,255,255,0.04)",
-              }}
-            >
-              <span className="text-2xl">{item.icon}</span>
-              <div>
-                <div
-                  style={{
-                    fontFamily: "var(--font-share-mono)",
-                    fontSize: "0.58rem",
-                    letterSpacing: "0.1em",
-                    color: "#475569",
-                  }}
-                >
-                  {item.label.toUpperCase()}
-                </div>
-                <div
-                  style={{
-                    fontFamily: "var(--font-bebas)",
-                    fontSize: "1rem",
-                    color: "#fdba74",
-                    letterSpacing: "0.08em",
-                  }}
-                >
-                  {item.value}
+            <StaggerItem key={item.label}>
+              <div
+                className="flex items-center gap-4 p-4"
+                style={{
+                  background: "rgba(255,255,255,0.02)",
+                  border: "1px solid rgba(255,255,255,0.04)",
+                }}
+              >
+                <span className="text-2xl">{item.icon}</span>
+                <div>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-share-mono)",
+                      fontSize: "0.58rem",
+                      letterSpacing: "0.1em",
+                      color: "#475569",
+                    }}
+                  >
+                    {item.label.toUpperCase()}
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-bebas)",
+                      fontSize: "1rem",
+                      color: "#fdba74",
+                      letterSpacing: "0.08em",
+                    }}
+                  >
+                    {item.value}
+                  </div>
                 </div>
               </div>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );

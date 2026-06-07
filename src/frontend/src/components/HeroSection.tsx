@@ -1,4 +1,21 @@
+"use client";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
+
+const ease = [0.22, 1, 0.36, 1] as const;
+
 export default function HeroSection() {
+  const reduce = useReducedMotion();
+
+  const fadeUp = (delay: number): Variants => ({
+    hidden: { opacity: 0, y: reduce ? 0 : 24 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.65, delay, ease } },
+  });
+
+  const fadeIn = (delay: number): Variants => ({
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { duration: 0.55, delay, ease } },
+  });
+
   return (
     <section
       id="hero"
@@ -68,7 +85,10 @@ export default function HeroSection() {
       {/* Main hero content */}
       <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
         {/* Pre-label */}
-        <div
+        <motion.div
+          variants={fadeIn(0.1)}
+          initial="hidden"
+          animate="show"
           className="inline-flex items-center gap-3 mb-8 px-4 py-2"
           style={{
             border: "1px solid rgba(249,115,22,0.2)",
@@ -81,10 +101,13 @@ export default function HeroSection() {
         >
           <span className="w-1.5 h-1.5 rounded-full bg-orange-500 pulse-ring inline-block" />
           TELEMETRIA IoT · SATÉLITE INPE · ML EM TEMPO REAL
-        </div>
+        </motion.div>
 
         {/* Main title */}
-        <h1
+        <motion.h1
+          variants={fadeUp(0.25)}
+          initial="hidden"
+          animate="show"
           className="gradient-fire text-fire-glow leading-none mb-2"
           style={{
             fontFamily: "var(--font-bebas)",
@@ -93,10 +116,13 @@ export default function HeroSection() {
           }}
         >
           ATMOSSHIELD
-        </h1>
+        </motion.h1>
 
         {/* Tagline */}
-        <p
+        <motion.p
+          variants={fadeUp(0.42)}
+          initial="hidden"
+          animate="show"
           className="text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed"
           style={{
             fontSize: "clamp(1rem, 2.2vw, 1.35rem)",
@@ -107,10 +133,15 @@ export default function HeroSection() {
           <span className="text-orange-400">
             Detectamos o perigo antes que o fogo se espalhe.
           </span>
-        </p>
+        </motion.p>
 
         {/* CTA buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <motion.div
+          variants={fadeUp(0.58)}
+          initial="hidden"
+          animate="show"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
           <a
             href="/dashboard"
             className="group relative inline-flex items-center gap-3 px-8 py-4 transition-all duration-300 fire-glow-strong"
@@ -143,10 +174,13 @@ export default function HeroSection() {
           >
             COMO FUNCIONA ↓
           </a>
-        </div>
+        </motion.div>
 
         {/* Stats bar */}
-        <div
+        <motion.div
+          variants={fadeUp(0.72)}
+          initial="hidden"
+          animate="show"
           className="mt-16 grid grid-cols-3 gap-px"
           style={{ border: "1px solid rgba(255,255,255,0.05)", background: "rgba(255,255,255,0.05)" }}
         >
@@ -178,7 +212,7 @@ export default function HeroSection() {
               </span>
             </div>
           ))}
-        </div>
+        </motion.div>
       </div>
 
       {/* Scroll cue */}
