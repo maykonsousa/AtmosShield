@@ -84,7 +84,19 @@ def _archive(lat: float, lon: float, when: datetime) -> WeatherObservation:
 
 
 def get_weather(latitude: float, longitude: float, when: datetime | None = None) -> WeatherObservation:
-    """Clima por coordenada. when=None → Forecast (live); when=<datetime> → Archive (treino)."""
+    """Clima por coordenada. when=None → Forecast (live, com cache+fallback);
+    when=<datetime> → Archive (treino, sem fallback — estoura para rerodar)."""
     if when is not None:
-        return _archive(latitude, longitude, when)   # treino: sem cache/fallback; estoura p/ rerodar
-    return _forecast(latitude, longitude)
+        return _archive(latitude, longitude, when)
+
+    key = (round(latitude, 3), round(longitude, 3))
+    try:
+        obs = _forecast(latitude, longitude)
+        _cache[key] = (obs, _clock() + _CACHE_TTL_S)
+        return obs
+    except Exception:
+        cached = _cache.get(key)
+        if cached is not None and cached[1] > _clock():
+            o = cached[0]
+            return WeatherObservation(o.wind_kmh, o.precipitation_mm, o.soil_moisture, "cache")
+        return WeatherObservation(estimate_wind_kmh(latitude, longitude), 0.0, None, "estimado")

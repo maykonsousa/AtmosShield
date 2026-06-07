@@ -1,3 +1,5 @@
+import pytest
+import httpx
 from datetime import datetime
 
 from src.backend.app.services.weather import estimate_wind_kmh
@@ -84,3 +86,46 @@ def test_archive_aceita_when_tz_aware(monkeypatch):
         }})
     obs = get_weather(-3.5, -52.4, when=datetime(2025, 8, 12, 16, 20, tzinfo=timezone.utc))
     assert obs.wind_kmh == 31.5
+
+
+@pytest.fixture(autouse=True)
+def _limpa_cache():
+    weather._cache.clear()
+    yield
+    weather._cache.clear()
+
+
+def test_falha_sem_cache_cai_no_stub(monkeypatch):
+    def boom(url, params):
+        raise httpx.ConnectError("sem rede")
+    monkeypatch.setattr(weather, "_fetch", boom)
+    obs = get_weather(-3.5, -52.4)
+    assert obs.fonte == "estimado"
+    assert obs.wind_kmh == weather.estimate_wind_kmh(-3.5, -52.4)
+    assert obs.precipitation_mm == 0.0
+    assert obs.soil_moisture is None
+
+
+def test_falha_com_cache_valido_serve_do_cache(monkeypatch):
+    monkeypatch.setattr(weather, "_clock", lambda: 1000.0)
+    monkeypatch.setattr(weather, "_fetch", lambda url, params: _fake_forecast_payload())
+    primeiro = get_weather(-3.5, -52.4)          # popula o cache, fonte open-meteo
+    assert primeiro.fonte == "open-meteo"
+
+    def boom(url, params):
+        raise httpx.ConnectError("sem rede")
+    monkeypatch.setattr(weather, "_fetch", boom)
+    segundo = get_weather(-3.5, -52.4)           # API caiu, cache ainda válido
+    assert segundo.fonte == "cache"
+    assert segundo.wind_kmh == 23.4
+
+
+def test_cache_expirado_cai_no_stub(monkeypatch):
+    agora = {"t": 1000.0}
+    monkeypatch.setattr(weather, "_clock", lambda: agora["t"])
+    monkeypatch.setattr(weather, "_fetch", lambda url, params: _fake_forecast_payload())
+    get_weather(-3.5, -52.4)                      # cache expira em 1000 + TTL
+    agora["t"] = 1000.0 + weather._CACHE_TTL_S + 1
+    monkeypatch.setattr(weather, "_fetch", lambda url, params: (_ for _ in ()).throw(httpx.ConnectError("x")))
+    obs = get_weather(-3.5, -52.4)
+    assert obs.fonte == "estimado"
