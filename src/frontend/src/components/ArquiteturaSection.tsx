@@ -139,8 +139,8 @@ export default function ArquiteturaSection() {
                 staggerDelay={0.12}
               >
                 {archNodes.map((node) => (
-                  <StaggerItem key={node.id}>
-                    <div className="arch-node p-5 flex flex-col items-center text-center gap-2">
+                  <StaggerItem key={node.id} className="h-full">
+                    <div className="arch-node h-full p-5 flex flex-col items-center text-center gap-2">
                       <div style={{ color: node.color }}>{node.icon}</div>
                       <div>
                         <div
