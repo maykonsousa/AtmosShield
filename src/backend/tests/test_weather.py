@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from src.backend.app.services.weather import estimate_wind_kmh
 
 
@@ -35,9 +37,6 @@ def test_forecast_parseia_vento_precip_6h_e_solo(monkeypatch):
     assert obs.fonte == "open-meteo"
 
 
-from datetime import datetime
-
-
 def _fake_archive_payload():
     return {
         "hourly": {
@@ -63,3 +62,25 @@ def test_archive_seleciona_hora_mais_proxima(monkeypatch):
     assert obs.precipitation_mm == 0.0
     assert obs.soil_moisture == 0.09
     assert obs.fonte == "open-meteo"
+
+
+import pytest as _pytest_for_guard
+
+
+def test_archive_times_vazio_estoura(monkeypatch):
+    monkeypatch.setattr(weather, "_fetch", lambda url, params: {"hourly": {"time": [], "wind_speed_10m": [], "precipitation": [], "soil_moisture_0_to_1cm": []}})
+    with _pytest_for_guard.raises(ValueError):
+        get_weather(-3.5, -52.4, when=datetime(2025, 8, 12, 16, 20))
+
+
+def test_archive_aceita_when_tz_aware(monkeypatch):
+    from datetime import timezone
+    monkeypatch.setattr(weather, "_fetch", lambda url, params: {
+        "hourly": {
+            "time": ["2025-08-12T15:00", "2025-08-12T16:00", "2025-08-12T17:00"],
+            "wind_speed_10m": [12.0, 31.5, 14.0],
+            "precipitation": [0.0, 0.0, 1.0],
+            "soil_moisture_0_to_1cm": [0.10, 0.09, 0.09],
+        }})
+    obs = get_weather(-3.5, -52.4, when=datetime(2025, 8, 12, 16, 20, tzinfo=timezone.utc))
+    assert obs.wind_kmh == 31.5

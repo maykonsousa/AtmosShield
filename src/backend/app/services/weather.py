@@ -60,7 +60,9 @@ def _forecast(lat: float, lon: float) -> WeatherObservation:
 
 
 def _closest_hour_index(times: list[str], when: datetime) -> int:
-    target = when.replace(minute=0, second=0, microsecond=0)
+    if not times:
+        raise ValueError("Archive API returned no hourly timestamps for the requested date")
+    target = when.replace(tzinfo=None, minute=0, second=0, microsecond=0)
     parsed = [datetime.fromisoformat(t) for t in times]
     return min(range(len(parsed)), key=lambda i: abs((parsed[i] - target).total_seconds()))
 
