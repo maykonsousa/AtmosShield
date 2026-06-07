@@ -1,11 +1,25 @@
 import pandas as pd
+import pytest
 from sklearn.tree import DecisionTreeClassifier
 from src.backend.pipelines.train_model import train
 from src.backend.pipelines.generate_simulation import generate_readings
+import src.backend.pipelines.generate_simulation as gensim
+from src.backend.app.services.weather import WeatherObservation
 
 
 def _focos():
-    return pd.DataFrame({"latitude": [-3.50, -5.78, -12.54], "longitude": [-52.38, -53.00, -55.72]})
+    return pd.DataFrame({
+        "latitude": [-3.50, -5.78, -12.54],
+        "longitude": [-52.38, -53.00, -55.72],
+        "datahora_gmt": pd.to_datetime(["2025-08-12 16:00", "2025-08-13 14:00", "2025-08-14 12:00"]),
+    })
+
+
+@pytest.fixture(autouse=True)
+def _mock_weather(monkeypatch):
+    # vento alto + sem chuva → mantém variedade de risco; offline
+    monkeypatch.setattr(gensim, "get_weather",
+                        lambda lat, lon, when=None: WeatherObservation(28.0, 0.0, 0.12, "open-meteo"))
 
 
 def test_train_retorna_modelo_e_metricas():
