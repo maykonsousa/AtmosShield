@@ -1,3 +1,8 @@
+"use client";
+import { motion, useReducedMotion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
+import { useRef, useEffect } from "react";
+import { Reveal, StaggerContainer, StaggerItem } from "./Reveal";
+
 const features = [
   {
     name: "Temperatura",
@@ -57,6 +62,99 @@ const confusionData = [
   { label: "Falso Negativo", value: 13, color: "#f87171" },
 ];
 
+/** Animated bar: width goes from 0 to target when in view */
+function AnimatedBar({
+  weight,
+  color,
+  delay = 0,
+}: {
+  weight: number;
+  color: string;
+  delay?: number;
+}) {
+  const reduce = useReducedMotion();
+  return (
+    <div
+      className="h-1.5 w-full"
+      style={{ background: "rgba(255,255,255,0.05)", borderRadius: "1px" }}
+    >
+      <motion.div
+        className="h-full"
+        style={{
+          background: color,
+          borderRadius: "1px",
+          boxShadow: `0 0 8px ${color}50`,
+        }}
+        initial={{ width: 0 }}
+        whileInView={{ width: `${weight}%` }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={
+          reduce
+            ? { duration: 0 }
+            : { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }
+        }
+      />
+    </div>
+  );
+}
+
+/** Count-up number that animates when in view */
+function CountUp({
+  target,
+  suffix = "%",
+  color,
+  delay = 0,
+}: {
+  target: number;
+  suffix?: string;
+  color: string;
+  delay?: number;
+}) {
+  const reduce = useReducedMotion();
+  const ref = useRef<HTMLSpanElement>(null);
+  const motionVal = useMotionValue(reduce ? target : 0);
+  const rounded = useTransform(motionVal, (v) => Math.round(v));
+  const inViewRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(inViewRef, { once: true, amount: 0.5 });
+
+  useEffect(() => {
+    if (inView && !reduce) {
+      const controls = animate(motionVal, target, {
+        duration: 0.9,
+        delay,
+        ease: [0.22, 1, 0.36, 1],
+      });
+      return controls.stop;
+    }
+  }, [inView, target, delay, motionVal, reduce]);
+
+  return (
+    <div ref={inViewRef}>
+      <motion.span
+        ref={ref}
+        style={{
+          fontFamily: "var(--font-bebas)",
+          fontSize: "1.8rem",
+          color,
+          letterSpacing: "0.06em",
+        }}
+      >
+        {rounded}
+      </motion.span>
+      <span
+        style={{
+          fontFamily: "var(--font-bebas)",
+          fontSize: "1.8rem",
+          color,
+          letterSpacing: "0.06em",
+        }}
+      >
+        {suffix}
+      </span>
+    </div>
+  );
+}
+
 export default function MetricasSection() {
   return (
     <section id="metricas" className="relative py-24 lg:py-32 overflow-hidden">
@@ -71,7 +169,7 @@ export default function MetricasSection() {
 
       <div className="max-w-6xl mx-auto px-6">
         {/* Section header */}
-        <div className="mb-16">
+        <Reveal className="mb-16">
           <p
             className="text-orange-500 mb-3 tracking-widest"
             style={{ fontFamily: "var(--font-share-mono)", fontSize: "0.7rem" }}
@@ -89,34 +187,138 @@ export default function MetricasSection() {
             MÉTRICAS DO MODELO
           </h2>
           <div className="section-divider mt-4 max-w-xs" />
-        </div>
+        </Reveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* Left: Main accuracy card */}
-          <div>
-            {/* Hero accuracy */}
-            <div
-              className="p-8 mb-6 relative overflow-hidden"
-              style={{
-                background: "rgba(249,115,22,0.04)",
-                border: "1px solid rgba(249,115,22,0.15)",
-              }}
-            >
-              {/* Decorative large number */}
+          <Reveal>
+            <div>
+              {/* Hero accuracy */}
               <div
-                className="absolute -right-6 -bottom-6 opacity-5"
+                className="p-8 mb-6 relative overflow-hidden"
                 style={{
-                  fontFamily: "var(--font-bebas)",
-                  fontSize: "10rem",
-                  color: "#f97316",
-                  lineHeight: 1,
-                  userSelect: "none",
+                  background: "rgba(249,115,22,0.04)",
+                  border: "1px solid rgba(249,115,22,0.15)",
                 }}
               >
-                89%
+                {/* Decorative large number */}
+                <div
+                  className="absolute -right-6 -bottom-6 opacity-5"
+                  style={{
+                    fontFamily: "var(--font-bebas)",
+                    fontSize: "10rem",
+                    color: "#f97316",
+                    lineHeight: 1,
+                    userSelect: "none",
+                  }}
+                >
+                  89%
+                </div>
+
+                <p
+                  style={{
+                    fontFamily: "var(--font-share-mono)",
+                    fontSize: "0.65rem",
+                    letterSpacing: "0.15em",
+                    color: "#f97316",
+                  }}
+                >
+                  ACURÁCIA GERAL
+                </p>
+
+                <div
+                  className="gradient-fire text-fire-glow mt-2"
+                  style={{
+                    fontFamily: "var(--font-bebas)",
+                    fontSize: "5rem",
+                    letterSpacing: "0.04em",
+                    lineHeight: 1,
+                  }}
+                >
+                  ~89%
+                </div>
+
+                <p
+                  className="text-slate-400 mt-3"
+                  style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.88rem" }}
+                >
+                  Árvore de Decisão treinado com dataset sintético + histórico INPE. Validação
+                  cruzada k=5. Resultado estável entre 87%–91% dependendo da região e época do ano.
+                </p>
+
+                {/* Progress bar */}
+                <div className="mt-5">
+                  <AnimatedBar weight={89} color="#f97316" delay={0.2} />
+                  <div className="flex justify-between mt-1">
+                    <span
+                      style={{
+                        fontFamily: "var(--font-share-mono)",
+                        fontSize: "0.55rem",
+                        color: "#475569",
+                        letterSpacing: "0.1em",
+                      }}
+                    >
+                      0%
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: "var(--font-share-mono)",
+                        fontSize: "0.55rem",
+                        color: "#f97316",
+                        letterSpacing: "0.1em",
+                      }}
+                    >
+                      89% ← META
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: "var(--font-share-mono)",
+                        fontSize: "0.55rem",
+                        color: "#475569",
+                        letterSpacing: "0.1em",
+                      }}
+                    >
+                      100%
+                    </span>
+                  </div>
+                </div>
               </div>
 
+              {/* Secondary metrics */}
+              <StaggerContainer className="grid grid-cols-2 gap-4" staggerDelay={0.1}>
+                {confusionData.map((m) => (
+                  <StaggerItem key={m.label}>
+                    <div
+                      className="p-5"
+                      style={{
+                        background: "rgba(255,255,255,0.02)",
+                        border: "1px solid rgba(255,255,255,0.05)",
+                        borderLeft: `2px solid ${m.color}50`,
+                      }}
+                    >
+                      <CountUp target={m.value} color={m.color} delay={0.1} />
+                      <div
+                        style={{
+                          fontFamily: "var(--font-share-mono)",
+                          fontSize: "0.6rem",
+                          letterSpacing: "0.1em",
+                          color: "#64748b",
+                        }}
+                      >
+                        {m.label.toUpperCase()}
+                      </div>
+                    </div>
+                  </StaggerItem>
+                ))}
+              </StaggerContainer>
+            </div>
+          </Reveal>
+
+          {/* Right: Feature importance */}
+          <Reveal delay={0.1}>
+            <div>
               <p
+                className="mb-6"
                 style={{
                   fontFamily: "var(--font-share-mono)",
                   fontSize: "0.65rem",
@@ -124,238 +326,104 @@ export default function MetricasSection() {
                   color: "#f97316",
                 }}
               >
-                ACURÁCIA GERAL
+                IMPORTÂNCIA DAS VARIÁVEIS
               </p>
 
+              <div className="flex flex-col gap-5">
+                {features.map((f, i) => (
+                  <div key={f.name}>
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-3">
+                        <div style={{ color: f.color }}>{f.icon}</div>
+                        <div>
+                          <span
+                            style={{
+                              fontFamily: "var(--font-bebas)",
+                              fontSize: "1rem",
+                              color: "white",
+                              letterSpacing: "0.08em",
+                            }}
+                          >
+                            {f.name}
+                          </span>
+                          <span
+                            className="ml-2"
+                            style={{
+                              fontFamily: "var(--font-share-mono)",
+                              fontSize: "0.58rem",
+                              color: "#475569",
+                            }}
+                          >
+                            ({f.unit})
+                          </span>
+                        </div>
+                      </div>
+                      <span
+                        style={{
+                          fontFamily: "var(--font-share-mono)",
+                          fontSize: "0.7rem",
+                          color: f.color,
+                          letterSpacing: "0.05em",
+                        }}
+                      >
+                        {f.weight}%
+                      </span>
+                    </div>
+
+                    {/* Animated bar */}
+                    <AnimatedBar weight={f.weight} color={f.color} delay={i * 0.08} />
+
+                    <p
+                      className="mt-1 text-slate-600"
+                      style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.75rem" }}
+                    >
+                      {f.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Model info panel */}
               <div
-                className="gradient-fire text-fire-glow mt-2"
+                className="mt-8 p-5"
                 style={{
-                  fontFamily: "var(--font-bebas)",
-                  fontSize: "5rem",
-                  letterSpacing: "0.04em",
-                  lineHeight: 1,
+                  background: "rgba(15,17,23,0.9)",
+                  border: "1px solid rgba(255,255,255,0.05)",
+                  fontFamily: "var(--font-share-mono)",
+                  fontSize: "0.65rem",
+                  letterSpacing: "0.08em",
+                  lineHeight: "1.8",
                 }}
               >
-                ~89%
-              </div>
-
-              <p
-                className="text-slate-400 mt-3"
-                style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.88rem" }}
-              >
-                Árvore de Decisão treinado com dataset sintético + histórico INPE. Validação
-                cruzada k=5. Resultado estável entre 87%–91% dependendo da região e época do ano.
-              </p>
-
-              {/* Progress bar */}
-              <div className="mt-5">
-                <div
-                  className="h-2 w-full"
-                  style={{ background: "rgba(255,255,255,0.05)", borderRadius: "1px" }}
-                >
-                  <div
-                    className="h-full"
-                    style={{
-                      width: "89%",
-                      background: "linear-gradient(90deg, #f97316, #ef4444)",
-                      borderRadius: "1px",
-                      boxShadow: "0 0 10px rgba(249,115,22,0.4)",
-                    }}
-                  />
-                </div>
-                <div className="flex justify-between mt-1">
-                  <span
-                    style={{
-                      fontFamily: "var(--font-share-mono)",
-                      fontSize: "0.55rem",
-                      color: "#475569",
-                      letterSpacing: "0.1em",
-                    }}
-                  >
-                    0%
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-share-mono)",
-                      fontSize: "0.55rem",
-                      color: "#f97316",
-                      letterSpacing: "0.1em",
-                    }}
-                  >
-                    89% ← META
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-share-mono)",
-                      fontSize: "0.55rem",
-                      color: "#475569",
-                      letterSpacing: "0.1em",
-                    }}
-                  >
-                    100%
-                  </span>
-                </div>
+                <p className="text-orange-500 mb-2">$ modelo.info()</p>
+                <p className="text-slate-500">
+                  <span className="text-slate-400">algoritmo</span>
+                  <span className="text-slate-600"> ........ </span>
+                  <span style={{ color: "#a78bfa" }}>RandomForestClassifier</span>
+                </p>
+                <p className="text-slate-500">
+                  <span className="text-slate-400">n_estimators</span>
+                  <span className="text-slate-600"> .... </span>
+                  <span style={{ color: "#4ade80" }}>100</span>
+                </p>
+                <p className="text-slate-500">
+                  <span className="text-slate-400">features</span>
+                  <span className="text-slate-600"> ....... </span>
+                  <span style={{ color: "#fbbf24" }}>4 (temp, vento, umid, dist)</span>
+                </p>
+                <p className="text-slate-500">
+                  <span className="text-slate-400">classes</span>
+                  <span className="text-slate-600"> ........ </span>
+                  <span style={{ color: "#f97316" }}>baixo / moderado / crítico</span>
+                </p>
+                <p className="text-slate-500">
+                  <span className="text-slate-400">accuracy</span>
+                  <span className="text-slate-600"> ....... </span>
+                  <span style={{ color: "#ef4444" }}>0.8921</span>
+                </p>
               </div>
             </div>
-
-            {/* Secondary metrics */}
-            <div className="grid grid-cols-2 gap-4">
-              {confusionData.map((m) => (
-                <div
-                  key={m.label}
-                  className="p-5"
-                  style={{
-                    background: "rgba(255,255,255,0.02)",
-                    border: "1px solid rgba(255,255,255,0.05)",
-                    borderLeft: `2px solid ${m.color}50`,
-                  }}
-                >
-                  <div
-                    style={{
-                      fontFamily: "var(--font-bebas)",
-                      fontSize: "1.8rem",
-                      color: m.color,
-                      letterSpacing: "0.06em",
-                    }}
-                  >
-                    {m.value}%
-                  </div>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-share-mono)",
-                      fontSize: "0.6rem",
-                      letterSpacing: "0.1em",
-                      color: "#64748b",
-                    }}
-                  >
-                    {m.label.toUpperCase()}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right: Feature importance */}
-          <div>
-            <p
-              className="mb-6"
-              style={{
-                fontFamily: "var(--font-share-mono)",
-                fontSize: "0.65rem",
-                letterSpacing: "0.15em",
-                color: "#f97316",
-              }}
-            >
-              IMPORTÂNCIA DAS VARIÁVEIS
-            </p>
-
-            <div className="flex flex-col gap-5">
-              {features.map((f) => (
-                <div key={f.name}>
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-3">
-                      <div style={{ color: f.color }}>{f.icon}</div>
-                      <div>
-                        <span
-                          style={{
-                            fontFamily: "var(--font-bebas)",
-                            fontSize: "1rem",
-                            color: "white",
-                            letterSpacing: "0.08em",
-                          }}
-                        >
-                          {f.name}
-                        </span>
-                        <span
-                          className="ml-2"
-                          style={{
-                            fontFamily: "var(--font-share-mono)",
-                            fontSize: "0.58rem",
-                            color: "#475569",
-                          }}
-                        >
-                          ({f.unit})
-                        </span>
-                      </div>
-                    </div>
-                    <span
-                      style={{
-                        fontFamily: "var(--font-share-mono)",
-                        fontSize: "0.7rem",
-                        color: f.color,
-                        letterSpacing: "0.05em",
-                      }}
-                    >
-                      {f.weight}%
-                    </span>
-                  </div>
-
-                  {/* Bar */}
-                  <div
-                    className="h-1.5 w-full"
-                    style={{ background: "rgba(255,255,255,0.05)", borderRadius: "1px" }}
-                  >
-                    <div
-                      className="h-full transition-all duration-700"
-                      style={{
-                        width: `${f.weight}%`,
-                        background: f.color,
-                        borderRadius: "1px",
-                        boxShadow: `0 0 8px ${f.color}50`,
-                      }}
-                    />
-                  </div>
-
-                  <p
-                    className="mt-1 text-slate-600"
-                    style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.75rem" }}
-                  >
-                    {f.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            {/* Model info panel */}
-            <div
-              className="mt-8 p-5"
-              style={{
-                background: "rgba(15,17,23,0.9)",
-                border: "1px solid rgba(255,255,255,0.05)",
-                fontFamily: "var(--font-share-mono)",
-                fontSize: "0.65rem",
-                letterSpacing: "0.08em",
-                lineHeight: "1.8",
-              }}
-            >
-              <p className="text-orange-500 mb-2">$ modelo.info()</p>
-              <p className="text-slate-500">
-                <span className="text-slate-400">algoritmo</span>
-                <span className="text-slate-600"> ........ </span>
-                <span style={{ color: "#a78bfa" }}>RandomForestClassifier</span>
-              </p>
-              <p className="text-slate-500">
-                <span className="text-slate-400">n_estimators</span>
-                <span className="text-slate-600"> .... </span>
-                <span style={{ color: "#4ade80" }}>100</span>
-              </p>
-              <p className="text-slate-500">
-                <span className="text-slate-400">features</span>
-                <span className="text-slate-600"> ....... </span>
-                <span style={{ color: "#fbbf24" }}>4 (temp, vento, umid, dist)</span>
-              </p>
-              <p className="text-slate-500">
-                <span className="text-slate-400">classes</span>
-                <span className="text-slate-600"> ........ </span>
-                <span style={{ color: "#f97316" }}>baixo / moderado / crítico</span>
-              </p>
-              <p className="text-slate-500">
-                <span className="text-slate-400">accuracy</span>
-                <span className="text-slate-600"> ....... </span>
-                <span style={{ color: "#ef4444" }}>0.8921</span>
-              </p>
-            </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

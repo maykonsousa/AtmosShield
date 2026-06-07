@@ -1,3 +1,7 @@
+"use client";
+import { motion, useReducedMotion } from "framer-motion";
+import { Reveal, StaggerContainer, StaggerItem } from "./Reveal";
+
 const members = [
   {
     name: "Matheus de França Fantini",
@@ -33,6 +37,119 @@ const members = [
   },
 ];
 
+function MemberCard({ m }: { m: typeof members[0] }) {
+  const reduce = useReducedMotion();
+  return (
+    <motion.article
+      className="group flex flex-col relative"
+      style={{
+        background: "rgba(15,17,23,0.8)",
+        border: "1px solid rgba(255,255,255,0.05)",
+      }}
+      whileHover={
+        reduce
+          ? {}
+          : {
+              y: -5,
+              boxShadow: `0 12px 40px ${m.color}18`,
+              borderColor: `${m.color}30`,
+            }
+      }
+      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {/* Top color bar */}
+      <div
+        className="h-1 w-full"
+        style={{ background: `linear-gradient(90deg, ${m.color}80, ${m.color}20)` }}
+      />
+
+      <div className="p-6 flex flex-col flex-1">
+        {/* Avatar */}
+        <div
+          className="w-14 h-14 flex items-center justify-center mb-5 relative"
+          style={{
+            background: `${m.color}12`,
+            border: `1px solid ${m.color}30`,
+          }}
+        >
+          <span
+            style={{
+              fontFamily: "var(--font-bebas)",
+              fontSize: "1.4rem",
+              color: m.color,
+              letterSpacing: "0.05em",
+            }}
+          >
+            {m.initials}
+          </span>
+          {/* Glow dot */}
+          <div
+            className="absolute -top-1 -right-1 w-3 h-3 rounded-full"
+            style={{
+              background: m.color,
+              boxShadow: `0 0 8px ${m.color}`,
+            }}
+          />
+        </div>
+
+        {/* Name */}
+        <h3
+          className="text-white leading-tight mb-1"
+          style={{
+            fontFamily: "var(--font-dm-sans)",
+            fontSize: "0.95rem",
+            fontWeight: 600,
+          }}
+        >
+          {m.name}
+        </h3>
+
+        {/* Role */}
+        <span
+          className="mb-4"
+          style={{
+            fontFamily: "var(--font-share-mono)",
+            fontSize: "0.6rem",
+            letterSpacing: "0.12em",
+            color: m.color,
+            textTransform: "uppercase",
+          }}
+        >
+          {m.role}
+        </span>
+
+        {/* Description */}
+        <p
+          className="text-slate-500 text-sm leading-relaxed flex-1 mb-5"
+          style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.82rem" }}
+        >
+          {m.description}
+        </p>
+
+        {/* Tags */}
+        <div className="flex flex-wrap gap-1.5">
+          {m.tags.map((tag) => (
+            <span
+              key={tag}
+              className="px-2 py-0.5"
+              style={{
+                fontFamily: "var(--font-share-mono)",
+                fontSize: "0.55rem",
+                letterSpacing: "0.08em",
+                background: `${m.color}08`,
+                border: `1px solid ${m.color}20`,
+                color: `${m.color}cc`,
+              }}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </motion.article>
+  );
+}
+
 export default function TimeSection() {
   return (
     <section id="time" className="relative py-24 lg:py-32 overflow-hidden">
@@ -47,7 +164,7 @@ export default function TimeSection() {
 
       <div className="max-w-6xl mx-auto px-6">
         {/* Section header */}
-        <div className="mb-16">
+        <Reveal className="mb-16">
           <p
             className="text-orange-500 mb-3 tracking-widest"
             style={{ fontFamily: "var(--font-share-mono)", fontSize: "0.7rem" }}
@@ -65,113 +182,21 @@ export default function TimeSection() {
             NOSSO TIME
           </h2>
           <div className="section-divider mt-4 max-w-xs" />
-        </div>
+        </Reveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <StaggerContainer
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          staggerDelay={0.12}
+        >
           {members.map((m) => (
-            <article
-              key={m.name}
-              className="group flex flex-col relative"
-              style={{
-                background: "rgba(15,17,23,0.8)",
-                border: "1px solid rgba(255,255,255,0.05)",
-              }}
-            >
-              {/* Top color bar */}
-              <div
-                className="h-1 w-full"
-                style={{ background: `linear-gradient(90deg, ${m.color}80, ${m.color}20)` }}
-              />
-
-              <div className="p-6 flex flex-col flex-1">
-                {/* Avatar */}
-                <div
-                  className="w-14 h-14 flex items-center justify-center mb-5 relative"
-                  style={{
-                    background: `${m.color}12`,
-                    border: `1px solid ${m.color}30`,
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: "var(--font-bebas)",
-                      fontSize: "1.4rem",
-                      color: m.color,
-                      letterSpacing: "0.05em",
-                    }}
-                  >
-                    {m.initials}
-                  </span>
-                  {/* Glow dot */}
-                  <div
-                    className="absolute -top-1 -right-1 w-3 h-3 rounded-full"
-                    style={{
-                      background: m.color,
-                      boxShadow: `0 0 8px ${m.color}`,
-                    }}
-                  />
-                </div>
-
-                {/* Name */}
-                <h3
-                  className="text-white leading-tight mb-1"
-                  style={{
-                    fontFamily: "var(--font-dm-sans)",
-                    fontSize: "0.95rem",
-                    fontWeight: 600,
-                  }}
-                >
-                  {m.name}
-                </h3>
-
-                {/* Role */}
-                <span
-                  className="mb-4"
-                  style={{
-                    fontFamily: "var(--font-share-mono)",
-                    fontSize: "0.6rem",
-                    letterSpacing: "0.12em",
-                    color: m.color,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {m.role}
-                </span>
-
-                {/* Description */}
-                <p
-                  className="text-slate-500 text-sm leading-relaxed flex-1 mb-5"
-                  style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.82rem" }}
-                >
-                  {m.description}
-                </p>
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-1.5">
-                  {m.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2 py-0.5"
-                      style={{
-                        fontFamily: "var(--font-share-mono)",
-                        fontSize: "0.55rem",
-                        letterSpacing: "0.08em",
-                        background: `${m.color}08`,
-                        border: `1px solid ${m.color}20`,
-                        color: `${m.color}cc`,
-                      }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </article>
+            <StaggerItem key={m.name}>
+              <MemberCard m={m} />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
 
         {/* Team badge */}
-        <div className="mt-12 text-center">
+        <Reveal delay={0.1} className="mt-12 text-center">
           <div
             className="inline-flex items-center gap-3 px-6 py-3"
             style={{
@@ -187,7 +212,7 @@ export default function TimeSection() {
             TURMA 2TDSPV · FIAP GLOBAL SOLUTION 2026.1
             <span className="text-orange-500">◆</span>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

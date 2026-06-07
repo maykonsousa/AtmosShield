@@ -1,3 +1,6 @@
+"use client";
+import { Reveal, StaggerContainer, StaggerItem } from "./Reveal";
+
 const steps = [
   {
     step: "01",
@@ -64,7 +67,7 @@ export default function ComoFuncionaSection() {
 
       <div className="max-w-6xl mx-auto px-6">
         {/* Section header */}
-        <div className="mb-16">
+        <Reveal className="mb-16">
           <p
             className="text-orange-500 mb-3 tracking-widest"
             style={{ fontFamily: "var(--font-share-mono)", fontSize: "0.7rem" }}
@@ -82,7 +85,7 @@ export default function ComoFuncionaSection() {
             COMO FUNCIONA
           </h2>
           <div className="section-divider mt-4 max-w-xs" />
-        </div>
+        </Reveal>
 
         {/* Steps — vertical timeline on mobile, horizontal on desktop */}
         <div className="relative">
@@ -95,111 +98,113 @@ export default function ComoFuncionaSection() {
             }}
           />
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6">
+          <StaggerContainer className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6" staggerDelay={0.15}>
             {steps.map((s, i) => (
-              <div key={s.step} className="relative flex flex-col">
-                {/* Step number circle */}
-                <div className="flex items-center gap-4 mb-6">
-                  <div
-                    className="relative w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 z-10"
-                    style={{
-                      background: "#0a0b0d",
-                      border: `2px solid ${s.color}`,
-                      boxShadow: `0 0 20px ${s.color}33`,
-                    }}
-                  >
-                    <span
+              <StaggerItem key={s.step}>
+                <div className="relative flex flex-col">
+                  {/* Step number circle */}
+                  <div className="flex items-center gap-4 mb-6">
+                    <div
+                      className="relative w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 z-10"
                       style={{
-                        fontFamily: "var(--font-bebas)",
-                        fontSize: "1rem",
-                        color: s.color,
-                        letterSpacing: "0.06em",
+                        background: "#0a0b0d",
+                        border: `2px solid ${s.color}`,
+                        boxShadow: `0 0 20px ${s.color}33`,
                       }}
                     >
-                      {s.step}
-                    </span>
-                  </div>
-                  {/* Mobile connector */}
-                  {i < steps.length - 1 && (
-                    <div
-                      className="lg:hidden flex-1 h-px"
-                      style={{
-                        background: `linear-gradient(90deg, ${s.color}66, transparent)`,
-                      }}
-                    />
-                  )}
-                </div>
-
-                {/* Card */}
-                <div
-                  className="flex-1 p-7 relative"
-                  style={{
-                    background: "rgba(15,17,23,0.8)",
-                    border: "1px solid rgba(255,255,255,0.05)",
-                    borderTop: `2px solid ${s.color}44`,
-                  }}
-                >
-                  {/* Icon */}
-                  <div className="mb-5" style={{ color: s.color }}>
-                    {s.icon}
-                  </div>
-
-                  <h3
-                    className="text-white mb-1"
-                    style={{
-                      fontFamily: "var(--font-bebas)",
-                      fontSize: "1.5rem",
-                      letterSpacing: "0.08em",
-                    }}
-                  >
-                    {s.title}
-                  </h3>
-                  <p
-                    className="mb-4"
-                    style={{
-                      fontFamily: "var(--font-share-mono)",
-                      fontSize: "0.65rem",
-                      letterSpacing: "0.1em",
-                      color: s.color,
-                    }}
-                  >
-                    {s.subtitle}
-                  </p>
-
-                  <p
-                    className="text-slate-400 leading-relaxed mb-5"
-                    style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.9rem" }}
-                  >
-                    {s.description}
-                  </p>
-
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2">
-                    {s.tags.map((tag) => (
                       <span
-                        key={tag}
-                        className="px-2 py-1 text-xs"
                         style={{
-                          fontFamily: "var(--font-share-mono)",
-                          fontSize: "0.6rem",
-                          letterSpacing: "0.1em",
-                          background: `${s.color}10`,
-                          border: `1px solid ${s.color}30`,
+                          fontFamily: "var(--font-bebas)",
+                          fontSize: "1rem",
                           color: s.color,
+                          letterSpacing: "0.06em",
                         }}
                       >
-                        {tag}
+                        {s.step}
                       </span>
-                    ))}
+                    </div>
+                    {/* Mobile connector */}
+                    {i < steps.length - 1 && (
+                      <div
+                        className="lg:hidden flex-1 h-px"
+                        style={{
+                          background: `linear-gradient(90deg, ${s.color}66, transparent)`,
+                        }}
+                      />
+                    )}
+                  </div>
+
+                  {/* Card */}
+                  <div
+                    className="flex-1 p-7 relative"
+                    style={{
+                      background: "rgba(15,17,23,0.8)",
+                      border: "1px solid rgba(255,255,255,0.05)",
+                      borderTop: `2px solid ${s.color}44`,
+                    }}
+                  >
+                    {/* Icon */}
+                    <div className="mb-5" style={{ color: s.color }}>
+                      {s.icon}
+                    </div>
+
+                    <h3
+                      className="text-white mb-1"
+                      style={{
+                        fontFamily: "var(--font-bebas)",
+                        fontSize: "1.5rem",
+                        letterSpacing: "0.08em",
+                      }}
+                    >
+                      {s.title}
+                    </h3>
+                    <p
+                      className="mb-4"
+                      style={{
+                        fontFamily: "var(--font-share-mono)",
+                        fontSize: "0.65rem",
+                        letterSpacing: "0.1em",
+                        color: s.color,
+                      }}
+                    >
+                      {s.subtitle}
+                    </p>
+
+                    <p
+                      className="text-slate-400 leading-relaxed mb-5"
+                      style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.9rem" }}
+                    >
+                      {s.description}
+                    </p>
+
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2">
+                      {s.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-2 py-1 text-xs"
+                          style={{
+                            fontFamily: "var(--font-share-mono)",
+                            fontSize: "0.6rem",
+                            letterSpacing: "0.1em",
+                            background: `${s.color}10`,
+                            border: `1px solid ${s.color}30`,
+                            color: s.color,
+                          }}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
 
         {/* Risk levels legend */}
-        <div className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-6">
+        <Reveal delay={0.1} className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-6">
           <span
             style={{
               fontFamily: "var(--font-share-mono)",
@@ -227,7 +232,7 @@ export default function ComoFuncionaSection() {
               ● {r.label}
             </span>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   );

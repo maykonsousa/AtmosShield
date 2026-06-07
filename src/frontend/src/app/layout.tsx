@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Bebas_Neue, Share_Tech_Mono, DM_Sans } from "next/font/google";
 import "./globals.css";
 
@@ -39,6 +40,17 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${bebasNeue.variable} ${shareTechMono.variable} ${dmSans.variable} h-full`}
     >
+      <head>
+        {/* react-grab: ferramenta de dev — Ctrl/Cmd+C sobre um elemento copia o
+            contexto do componente (stack + arquivo-fonte) pro agente. Só em dev. */}
+        {process.env.NODE_ENV === "development" && (
+          <Script
+            src="//unpkg.com/react-grab/dist/index.global.js"
+            crossOrigin="anonymous"
+            strategy="beforeInteractive"
+          />
+        )}
+      </head>
       <body className="min-h-full flex flex-col antialiased scanlines">
         {children}
       </body>
