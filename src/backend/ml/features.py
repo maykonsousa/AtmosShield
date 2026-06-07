@@ -2,7 +2,7 @@
 import math
 import pandas as pd
 
-FEATURE_COLUMNS = ["temperatura", "umidade_ar", "ppm_fumaca", "vento_kmh", "densidade_focos", "dist_foco_km"]
+FEATURE_COLUMNS = ["temperatura", "umidade_ar", "ppm_fumaca", "vento_kmh", "densidade_focos", "dist_foco_km", "precipitation_mm"]
 
 _EARTH_RADIUS_KM = 6371.0
 _FAR_AWAY_KM = 9999.0
