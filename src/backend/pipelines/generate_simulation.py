@@ -37,7 +37,11 @@ def generate_readings(focos_df: pd.DataFrame, n_nodes: int = 40, seed: int = 42)
             ppm_fumaca = rng.uniform(200, 500)
             # cenário quente: tende a ventar mais que o baseline, quase sem chuva
             vento_kmh = float(np.clip(clima.wind_kmh + rng.uniform(0, 20), 2, 60))
-            precipitation_mm = max(0.0, clima.precipitation_mm + rng.uniform(0, 4))
+            if rng.random() < 0.30:
+                # foco quente sob chuva forte → a precipitação suprime o risco (cenário-alvo da issue)
+                precipitation_mm = max(0.0, clima.precipitation_mm + rng.uniform(15, 30))
+            else:
+                precipitation_mm = max(0.0, clima.precipitation_mm + rng.uniform(0, 4))
         else:
             lat = base["latitude"] + rng.normal(0, 0.6)
             lon = base["longitude"] + rng.normal(0, 0.6)
