@@ -1,5 +1,5 @@
 {
-  "accuracy": 1.0,
+  "accuracy": 0.9066666666666666,
   "confusion_matrix": [
     [
       38,
@@ -8,13 +8,13 @@
     ],
     [
       0,
-      27,
-      0
+      17,
+      3
     ],
     [
       0,
-      0,
-      10
+      4,
+      13
     ]
   ],
   "classification_report": {
@@ -25,38 +25,38 @@
       "support": 38.0
     },
     "1": {
-      "precision": 1.0,
-      "recall": 1.0,
-      "f1-score": 1.0,
-      "support": 27.0
+      "precision": 0.8095238095238095,
+      "recall": 0.85,
+      "f1-score": 0.8292682926829268,
+      "support": 20.0
     },
     "2": {
-      "precision": 1.0,
-      "recall": 1.0,
-      "f1-score": 1.0,
-      "support": 10.0
+      "precision": 0.8125,
+      "recall": 0.7647058823529411,
+      "f1-score": 0.7878787878787878,
+      "support": 17.0
     },
-    "accuracy": 1.0,
+    "accuracy": 0.9066666666666666,
     "macro avg": {
-      "precision": 1.0,
-      "recall": 1.0,
-      "f1-score": 1.0,
+      "precision": 0.8740079365079364,
+      "recall": 0.8715686274509804,
+      "f1-score": 0.8723823601872382,
       "support": 75.0
     },
     "weighted avg": {
-      "precision": 1.0,
-      "recall": 1.0,
-      "f1-score": 1.0,
+      "precision": 0.9067063492063492,
+      "recall": 0.9066666666666666,
+      "f1-score": 0.9063907366346391,
       "support": 75.0
     }
   },
   "feature_importances": {
-    "temperatura": 0.09624320479545312,
-    "umidade_ar": 0.0462702247147373,
-    "ppm_fumaca": 0.059946820642713956,
-    "vento_kmh": 0.0,
-    "densidade_focos": 0.013504915789347323,
-    "dist_foco_km": 0.7840348340577483,
+    "temperatura": 0.0,
+    "umidade_ar": 0.766240172805264,
+    "ppm_fumaca": 0.13186928360803243,
+    "vento_kmh": 0.07510302001450005,
+    "densidade_focos": 0.0,
+    "dist_foco_km": 0.02678752357220344,
     "precipitation_mm": 0.0
   }
 }
