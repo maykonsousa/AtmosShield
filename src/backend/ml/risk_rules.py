@@ -7,10 +7,11 @@ RISCO_CRITICO = 2
 RISK_LABELS = {RISCO_BAIXO: "Baixo", RISCO_MODERADO: "Moderado", RISCO_CRITICO: "Critico"}
 
 
-def label_risk(temperatura: float, umidade_ar: float, ppm_fumaca: float, dist_foco_km: float, vento_kmh: float) -> int:
+def label_risk(temperatura: float, umidade_ar: float, ppm_fumaca: float, dist_foco_km: float,
+               vento_kmh: float, precipitation_mm: float = 0.0) -> int:
     """Soma pontos por fator de risco e classifica em Baixo/Moderado/Crítico.
 
-    Vento forte acelera o alastramento, por isso entra na pontuação.
+    Vento forte acelera o alastramento (soma pontos); chuva volumosa apaga risco (subtrai).
     """
     score = 0
 
@@ -38,6 +39,13 @@ def label_risk(temperatura: float, umidade_ar: float, ppm_fumaca: float, dist_fo
         score += 2
     elif vento_kmh >= 18:
         score += 1
+
+    # chuva real reduz o risco de ignição/alastramento
+    if precipitation_mm >= 15:
+        score -= 4
+    elif precipitation_mm >= 5:
+        score -= 2
+    score = max(score, 0)
 
     if score >= 7:
         return RISCO_CRITICO

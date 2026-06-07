@@ -22,3 +22,23 @@ def test_build_features_gera_colunas_do_modelo():
     out = build_features(readings, focos, radius_km=10.0)
     assert set(FEATURE_COLUMNS).issubset(out.columns)
     assert out["densidade_focos"].iloc[0] == 1
+
+
+from src.backend.ml.risk_rules import label_risk, RISCO_CRITICO, RISCO_MODERADO
+
+
+def test_chuva_reduz_risco():
+    # cenário crítico sem chuva
+    seco = label_risk(temperatura=44, umidade_ar=15, ppm_fumaca=420, dist_foco_km=1, vento_kmh=35)
+    assert seco == RISCO_CRITICO
+    # mesma leitura com chuva volumosa → score cai pelo menos um nível
+    molhado = label_risk(temperatura=44, umidade_ar=15, ppm_fumaca=420, dist_foco_km=1, vento_kmh=35,
+                         precipitation_mm=20.0)
+    assert molhado < seco
+
+
+def test_chuva_nao_deixa_score_negativo():
+    # cenário já baixo + chuva: não pode quebrar nem ir abaixo de Baixo (0)
+    r = label_risk(temperatura=22, umidade_ar=80, ppm_fumaca=10, dist_foco_km=50, vento_kmh=3,
+                   precipitation_mm=30.0)
+    assert r == 0
