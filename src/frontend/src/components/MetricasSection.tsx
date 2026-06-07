@@ -191,11 +191,11 @@ export default function MetricasSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* Left: Main accuracy card */}
-          <Reveal>
-            <div>
+          <Reveal className="h-full">
+            <div className="flex flex-col h-full">
               {/* Hero accuracy */}
               <div
-                className="p-8 mb-6 relative overflow-hidden"
+                className="p-8 mb-6 relative overflow-hidden flex-1"
                 style={{
                   background: "rgba(249,115,22,0.04)",
                   border: "1px solid rgba(249,115,22,0.15)",

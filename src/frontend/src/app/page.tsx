@@ -3,7 +3,6 @@ import ProblemaSection from "@/components/ProblemaSection";
 import ComoFuncionaSection from "@/components/ComoFuncionaSection";
 import ArquiteturaSection from "@/components/ArquiteturaSection";
 import MetricasSection from "@/components/MetricasSection";
-import TimeSection from "@/components/TimeSection";
 import FooterSection from "@/components/FooterSection";
 
 export default function Home() {
@@ -14,7 +13,6 @@ export default function Home() {
       <ComoFuncionaSection />
       <ArquiteturaSection />
       <MetricasSection />
-      <TimeSection />
       <FooterSection />
     </>
   );

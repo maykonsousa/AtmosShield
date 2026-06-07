@@ -100,8 +100,8 @@ export default function ComoFuncionaSection() {
 
           <StaggerContainer className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6" staggerDelay={0.15}>
             {steps.map((s, i) => (
-              <StaggerItem key={s.step}>
-                <div className="relative flex flex-col">
+              <StaggerItem key={s.step} className="h-full">
+                <div className="relative flex flex-col h-full">
                   {/* Step number circle */}
                   <div className="flex items-center gap-4 mb-6">
                     <div
@@ -136,7 +136,7 @@ export default function ComoFuncionaSection() {
 
                   {/* Card */}
                   <div
-                    className="flex-1 p-7 relative"
+                    className="flex-1 p-7 relative flex flex-col"
                     style={{
                       background: "rgba(15,17,23,0.8)",
                       border: "1px solid rgba(255,255,255,0.05)",
@@ -171,7 +171,7 @@ export default function ComoFuncionaSection() {
                     </p>
 
                     <p
-                      className="text-slate-400 leading-relaxed mb-5"
+                      className="text-slate-400 leading-relaxed mb-5 flex-1"
                       style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.9rem" }}
                     >
                       {s.description}

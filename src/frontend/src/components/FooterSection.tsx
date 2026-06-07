@@ -174,7 +174,7 @@ export default function FooterSection() {
                   color: "#334155",
                 }}
               >
-                · TECNOLOGIA DA INFORMAÇÃO · ANÁLISE DE DADOS ·
+                · Tecnologia em Inteligência Artificial (On-Line) ·
               </span>
             </div>
 
