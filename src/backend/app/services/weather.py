@@ -59,6 +59,30 @@ def _forecast(lat: float, lon: float) -> WeatherObservation:
     return WeatherObservation(round(wind, 1), round(precip, 2), soil, "open-meteo")
 
 
+def _closest_hour_index(times: list[str], when: datetime) -> int:
+    target = when.replace(minute=0, second=0, microsecond=0)
+    parsed = [datetime.fromisoformat(t) for t in times]
+    return min(range(len(parsed)), key=lambda i: abs((parsed[i] - target).total_seconds()))
+
+
+def _archive(lat: float, lon: float, when: datetime) -> WeatherObservation:
+    day = when.date().isoformat()
+    data = _fetch(ARCHIVE_URL, {
+        "latitude": lat, "longitude": lon,
+        "start_date": day, "end_date": day,
+        "hourly": "wind_speed_10m,precipitation,soil_moisture_0_to_1cm",
+    })
+    h = data["hourly"]
+    idx = _closest_hour_index(h["time"], when)
+    wind = float(h["wind_speed_10m"][idx])
+    precip = float(h["precipitation"][idx] or 0.0)
+    soils = h.get("soil_moisture_0_to_1cm") or []
+    soil = float(soils[idx]) if idx < len(soils) and soils[idx] is not None else None
+    return WeatherObservation(round(wind, 1), round(precip, 2), soil, "open-meteo")
+
+
 def get_weather(latitude: float, longitude: float, when: datetime | None = None) -> WeatherObservation:
     """Clima por coordenada. when=None → Forecast (live); when=<datetime> → Archive (treino)."""
+    if when is not None:
+        return _archive(latitude, longitude, when)   # treino: sem cache/fallback; estoura p/ rerodar
     return _forecast(latitude, longitude)

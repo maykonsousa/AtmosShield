@@ -33,3 +33,33 @@ def test_forecast_parseia_vento_precip_6h_e_solo(monkeypatch):
     assert obs.precipitation_mm == 4.0   # soma das 6 primeiras horas
     assert obs.soil_moisture == 0.21
     assert obs.fonte == "open-meteo"
+
+
+from datetime import datetime
+
+
+def _fake_archive_payload():
+    return {
+        "hourly": {
+            "time": ["2025-08-12T14:00", "2025-08-12T15:00", "2025-08-12T16:00", "2025-08-12T17:00"],
+            "wind_speed_10m": [10.0, 12.0, 31.5, 14.0],
+            "precipitation": [0.0, 0.0, 0.0, 1.0],
+            "soil_moisture_0_to_1cm": [0.10, 0.10, 0.09, 0.09],
+        },
+    }
+
+
+def test_archive_seleciona_hora_mais_proxima(monkeypatch):
+    captured = {}
+
+    def fake_fetch(url, params):
+        captured["url"] = url
+        return _fake_archive_payload()
+
+    monkeypatch.setattr(weather, "_fetch", fake_fetch)
+    obs = get_weather(-3.4712, -52.3812, when=datetime(2025, 8, 12, 16, 20))
+    assert captured["url"] == weather.ARCHIVE_URL          # usou Archive, não Forecast
+    assert obs.wind_kmh == 31.5                            # hora 16:00 (mais próxima de 16:20)
+    assert obs.precipitation_mm == 0.0
+    assert obs.soil_moisture == 0.09
+    assert obs.fonte == "open-meteo"
