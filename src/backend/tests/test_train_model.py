@@ -1,6 +1,6 @@
 import pandas as pd
 import pytest
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
 from src.backend.pipelines.train_model import train
 from src.backend.pipelines.generate_simulation import generate_readings
 import src.backend.pipelines.generate_simulation as gensim
@@ -25,7 +25,7 @@ def _mock_weather(monkeypatch):
 def test_train_retorna_modelo_e_metricas():
     df = generate_readings(_focos(), n_nodes=120, seed=42)
     model, metrics = train(df)
-    assert isinstance(model, DecisionTreeClassifier)
+    assert isinstance(model, RandomForestClassifier)
     assert "accuracy" in metrics
     assert 0.0 <= metrics["accuracy"] <= 1.0
     assert "confusion_matrix" in metrics

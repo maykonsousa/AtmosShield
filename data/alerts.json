@@ -29,8 +29,8 @@
     "umidade_ar": 17.4,
     "ppm_fumaca": 410.8,
     "densidade_focos": 2,
-    "risco": 1,
-    "risco_label": "Moderado"
+    "risco": 2,
+    "risco_label": "Critico"
   },
   {
     "device_id": "ESP32-SIM-003",
@@ -139,8 +139,8 @@
     "umidade_ar": 16.6,
     "ppm_fumaca": 225.5,
     "densidade_focos": 3,
-    "risco": 1,
-    "risco_label": "Moderado"
+    "risco": 0,
+    "risco_label": "Baixo"
   },
   {
     "device_id": "ESP32-SIM-013",
@@ -381,8 +381,8 @@
     "umidade_ar": 23.7,
     "ppm_fumaca": 377.4,
     "densidade_focos": 2,
-    "risco": 2,
-    "risco_label": "Critico"
+    "risco": 1,
+    "risco_label": "Moderado"
   },
   {
     "device_id": "ESP32-SIM-035",
@@ -469,8 +469,8 @@
     "umidade_ar": 16.3,
     "ppm_fumaca": 270.5,
     "densidade_focos": 2,
-    "risco": 1,
-    "risco_label": "Moderado"
+    "risco": 2,
+    "risco_label": "Critico"
   },
   {
     "device_id": "ESP32-SIM-043",
@@ -777,8 +777,8 @@
     "umidade_ar": 27.3,
     "ppm_fumaca": 354.4,
     "densidade_focos": 2,
-    "risco": 2,
-    "risco_label": "Critico"
+    "risco": 1,
+    "risco_label": "Moderado"
   },
   {
     "device_id": "ESP32-SIM-071",
@@ -821,8 +821,8 @@
     "umidade_ar": 29.5,
     "ppm_fumaca": 317.2,
     "densidade_focos": 1,
-    "risco": 1,
-    "risco_label": "Moderado"
+    "risco": 0,
+    "risco_label": "Baixo"
   },
   {
     "device_id": "ESP32-SIM-075",
@@ -865,8 +865,8 @@
     "umidade_ar": 12.6,
     "ppm_fumaca": 314.3,
     "densidade_focos": 3,
-    "risco": 2,
-    "risco_label": "Critico"
+    "risco": 1,
+    "risco_label": "Moderado"
   },
   {
     "device_id": "ESP32-SIM-079",

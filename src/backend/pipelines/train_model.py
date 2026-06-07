@@ -5,18 +5,18 @@ import joblib
 import pandas as pd
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
 
 from src.backend.ml.features import FEATURE_COLUMNS
 from src.backend.config import ARTIFACT_DIR, MODEL_PATH, METRICS_PATH, FOCOS_CSV
 
 
-def train(df: pd.DataFrame) -> tuple[DecisionTreeClassifier, dict]:
-    """Treina o DecisionTree e retorna (modelo, métricas)."""
+def train(df: pd.DataFrame) -> tuple[RandomForestClassifier, dict]:
+    """Treina o RandomForest e retorna (modelo, métricas)."""
     X = df[FEATURE_COLUMNS]
     y = df["risco"]
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42, stratify=y)
-    model = DecisionTreeClassifier(max_depth=4, random_state=42)
+    model = RandomForestClassifier(n_estimators=100, max_depth=6, random_state=42)
     model.fit(X_train, y_train)
     preds = model.predict(X_test)
     metrics = {
