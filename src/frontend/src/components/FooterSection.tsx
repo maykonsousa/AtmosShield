@@ -99,6 +99,7 @@ export default function FooterSection() {
                   { label: "Backend", value: "FastAPI + Python" },
                   { label: "ML", value: "RandomForest (Scikit-learn)" },
                   { label: "Satélite", value: "INPE / GOES" },
+                  { label: "Clima", value: "Open-Meteo (tempo real)" },
                   { label: "Frontend", value: "Next.js 16 + Tailwind" },
                   { label: "Repositório", value: "github.com/[link]" },
                 ].map((item) => (
