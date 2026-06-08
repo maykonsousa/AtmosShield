@@ -97,7 +97,7 @@ export default function FooterSection() {
                 {[
                   { label: "IoT / Hardware", value: "ESP32 + Wokwi" },
                   { label: "Backend", value: "FastAPI + Python" },
-                  { label: "ML", value: "Árvore de Decisão (Scikit-learn)" },
+                  { label: "ML", value: "RandomForest (Scikit-learn)" },
                   { label: "Satélite", value: "INPE / GOES" },
                   { label: "Frontend", value: "Next.js 16 + Tailwind" },
                   { label: "Repositório", value: "github.com/[link]" },

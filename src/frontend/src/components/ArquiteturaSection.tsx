@@ -29,7 +29,20 @@ const archNodes = [
       </svg>
     ),
     color: "#4ade80",
-    desc: "Temperatura, fumaça, umidade, vento",
+    desc: "Temperatura, fumaça, umidade",
+  },
+  {
+    id: "weather",
+    label: "OPEN-METEO",
+    sublabel: "Clima Real",
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+        <path d="M20 16.58A5 5 0 0018 7h-1.26A8 8 0 104 15.25" />
+        <path d="M8 19v2M12 19v2M16 19v2" />
+      </svg>
+    ),
+    color: "#38bdf8",
+    desc: "Vento e precipitação por coordenada",
   },
 ];
 
@@ -52,7 +65,7 @@ const processingNodes = [
   {
     id: "ml",
     label: "MODELO ML",
-    sublabel: "Árvore de Decisão",
+    sublabel: "Random Forest",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
         <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
@@ -135,7 +148,7 @@ export default function ArquiteturaSection() {
                 FONTES DE DADOS
               </p>
               <StaggerContainer
-                className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto"
+                className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto"
                 staggerDelay={0.12}
               >
                 {archNodes.map((node) => (
