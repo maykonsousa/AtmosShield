@@ -15,8 +15,9 @@
 O **AtmosShield** é uma prova de conceito que cruza **dados de satélite (focos de calor do INPE)**
 com **sensores de solo ESP32** para detectar e classificar precocemente o risco de alastramento de
 queimadas. O nó ESP32 (escala micro) confirma focos ativos em tempo real; a API em Python enriquece
-a leitura com variáveis macro (vento) e classifica o risco (Baixo/Moderado/Crítico) com um modelo de
-Machine Learning. Mapas de calor e gráficos tornam o risco visível para brigadas e produtores rurais.
+cada leitura com **clima real (vento e precipitação) da Open-Meteo** e classifica o risco
+(Baixo/Moderado/Crítico) com um modelo de Machine Learning. Os focos de calor são provenientes do
+INPE. Mapas de calor e gráficos tornam o risco visível para brigadas e produtores rurais.
 
 Tecnologia espacial a serviço da Terra: o satélite é o "olho no céu", o ESP32 é o "olho no chão".
 
@@ -33,7 +34,7 @@ Tecnologia espacial a serviço da Terra: o satélite é o "olho no céu", o ESP3
 
 - **Python & Algoritmos:** API FastAPI, pipelines com condicionais e laços.
 - **Análise de Dados (Pandas):** limpeza dos focos do INPE e detecção de outliers de sensores.
-- **Machine Learning:** `DecisionTreeClassifier` para o Índice de Risco de Propagação.
+- **Machine Learning:** `RandomForestClassifier (100 árvores)` para o Índice de Risco de Propagação.
 - **IoT (ESP32):** leitura de fumaça/temperatura e envio HTTP/JSON.
 - **Desenvolvimento Web:** interface Next.js + Tailwind.
 
@@ -46,7 +47,7 @@ Pré-requisitos: Python 3.11+ (recomendado 3.12) e (opcional) Node 18+ para o fr
 uv venv --python 3.12 .venv
 uv pip install --python .venv/bin/python -r requirements.txt
 
-# 2. Treinar o modelo e gerar os alertas
+# 2. Treinar o modelo e gerar os alertas (requer internet — consome a API Archive da Open-Meteo)
 .venv/bin/python -m src.backend.pipelines.train_model
 .venv/bin/python -m src.backend.pipelines.batch_inference
 
