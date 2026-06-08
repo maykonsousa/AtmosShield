@@ -28,6 +28,6 @@ def test_run_batch_gera_alertas():
     alerts = run_batch(model, df)
     assert len(alerts) == len(df)
     primeiro = alerts[0]
-    assert {"device_id", "latitude", "longitude", "risco", "risco_label"}.issubset(primeiro.keys())
+    assert {"device_id", "latitude", "longitude", "vento_kmh", "precipitation_mm", "risco", "risco_label"}.issubset(primeiro.keys())
     assert primeiro["risco_label"] in {"Baixo", "Moderado", "Critico"}
     assert primeiro["risco"] in {0, 1, 2}

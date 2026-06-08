@@ -23,6 +23,8 @@ def run_batch(model, df: pd.DataFrame) -> list[dict]:
                 "temperatura": float(row["temperatura"]),
                 "umidade_ar": float(row["umidade_ar"]),
                 "ppm_fumaca": float(row["ppm_fumaca"]),
+                "vento_kmh": float(row["vento_kmh"]),
+                "precipitation_mm": float(row["precipitation_mm"]),
                 "densidade_focos": int(row["densidade_focos"]),
                 "risco": risco,
                 "risco_label": RISK_LABELS[risco],
