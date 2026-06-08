@@ -26,7 +26,8 @@ export async function GET(request: Request) {
     longitude: String(longitude),
     current: "temperature_2m,relative_humidity_2m,wind_speed_10m",
     hourly: "precipitation",
-    forecast_days: "1",
+    forecast_days: "2",
+    timezone: "auto",
   });
 
   try {
@@ -40,7 +41,13 @@ export async function GET(request: Request) {
     const temperatura = Number(data.current.temperature_2m);
     const umidade = Number(data.current.relative_humidity_2m);
     const vento_kmh = Number(data.current.wind_speed_10m);
-    const precs: number[] = (data.hourly?.precipitation ?? []).slice(0, PRECIP_WINDOW_H);
+    const horas: string[] = data.hourly?.time ?? [];
+    const precsAll: number[] = data.hourly?.precipitation ?? [];
+    // janela das próximas ~6h a partir da hora atual (timezone local da coordenada)
+    const horaAtual = String(data.current?.time ?? "").slice(0, 13); // "YYYY-MM-DDTHH"
+    let inicio = horas.findIndex((t) => t.slice(0, 13) >= horaAtual);
+    if (inicio < 0) inicio = 0;
+    const precs: number[] = precsAll.slice(inicio, inicio + PRECIP_WINDOW_H);
     const precipitation_mm = precs.reduce((s, p) => s + (typeof p === "number" ? p : 0), 0);
 
     const risco = classificarRiscoClima({ temperatura, umidade, vento_kmh, precipitation_mm });
