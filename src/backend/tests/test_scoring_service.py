@@ -7,7 +7,7 @@ from src.backend.app.services.weather import WeatherObservation
 @pytest.fixture(autouse=True)
 def _mock_weather(monkeypatch):
     monkeypatch.setattr(scoring, "get_weather",
-                        lambda lat, lon, when=None: WeatherObservation(22.0, 0.0, 0.12, "open-meteo"))
+                        lambda lat, lon, when=None: WeatherObservation(wind_kmh=22.0, precipitation_mm=0.0, soil_moisture=0.12, fonte="open-meteo"))
 
 
 def test_leitura_quente_perto_de_foco_classifica_alto():

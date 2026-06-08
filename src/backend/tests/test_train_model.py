@@ -19,7 +19,7 @@ def _focos():
 def _mock_weather(monkeypatch):
     # vento alto + sem chuva → mantém variedade de risco; offline
     monkeypatch.setattr(gensim, "get_weather",
-                        lambda lat, lon, when=None: WeatherObservation(28.0, 0.0, 0.12, "open-meteo"))
+                        lambda lat, lon, when=None: WeatherObservation(wind_kmh=28.0, precipitation_mm=0.0, soil_moisture=0.12, fonte="open-meteo"))
 
 
 def test_train_retorna_modelo_e_metricas():
