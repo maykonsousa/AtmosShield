@@ -17,3 +17,14 @@ def flag_outliers(df: pd.DataFrame, temp_jump: float = TEMP_JUMP_C, smoke_thresh
     out["is_outlier"] = (temp_delta > temp_jump) & (out["ppm_fumaca"] < smoke_threshold)
     out["is_outlier"] = out["is_outlier"].fillna(False)
     return out
+
+
+def flag_calibracao_solo(umidade_ar: float, soil_moisture: float | None,
+                         limiar_ar_pct: float = 60.0, limiar_solo: float = 0.10) -> bool:
+    """Sinaliza possível descalibração: ar reportado muito úmido enquanto o solo está seco.
+
+    Diagnóstico — não altera a classificação de risco. soil_moisture em m³/m³ (0..~0.5).
+    """
+    if soil_moisture is None:
+        return False
+    return umidade_ar >= limiar_ar_pct and soil_moisture <= limiar_solo
