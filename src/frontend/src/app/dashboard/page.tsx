@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import type { Alerta } from "@/components/MapaRisco";
+import ClimaRegiaoWidget from "@/components/ClimaRegiaoWidget";
 
 const MapaRisco = dynamic(() => import("@/components/MapaRisco"), {
   ssr: false,
@@ -311,6 +312,11 @@ export default function DashboardPage() {
                 </div>
               );
             })}
+          </div>
+
+          {/* ── Clima da região do usuário ── */}
+          <div className="mb-6">
+            <ClimaRegiaoWidget />
           </div>
 
           {/* ── Main content: Map + Critical alerts ── */}
