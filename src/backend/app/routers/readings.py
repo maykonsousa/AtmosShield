@@ -54,6 +54,8 @@ def post_reading(payload: SensorReadingIn, request: Request, conn=Depends(get_db
         "umidade_ar": payload.leitura.umidade_ar,
         "ppm_fumaca": payload.leitura.ppm_fumaca,
         "vento_kmh": scored["vento_kmh"],
+        "vento_fonte": scored["vento_fonte"],
+        "precipitation_mm": scored["precipitation_mm"],
         "densidade_focos": scored["densidade_focos"],
         "dist_foco_km": scored["dist_foco_km"],
         "risco": scored["risco"],
