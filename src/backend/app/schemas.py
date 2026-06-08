@@ -28,6 +28,8 @@ class RiskAlertOut(BaseModel):
     umidade_ar: float
     ppm_fumaca: float
     vento_kmh: float
+    vento_fonte: str
+    precipitation_mm: float
     densidade_focos: int
     dist_foco_km: float
     risco: int

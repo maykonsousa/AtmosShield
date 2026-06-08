@@ -1,12 +1,26 @@
 "use client";
-import { motion, useReducedMotion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
-import { useRef, useEffect } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Reveal, StaggerContainer, StaggerItem } from "./Reveal";
 
+// Real feature importances from src/backend/ml/artifacts/metrics.json
+// accuracy: 0.9066666..., importances sorted descending
 const features = [
   {
+    name: "Precipitação",
+    weight: 21,
+    unit: "mm",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M20 17.58A5 5 0 0018 8h-1.26A8 8 0 104 19.8" />
+        <path d="M8 19v1m4-3v3m4-1v1" />
+      </svg>
+    ),
+    color: "#38bdf8",
+    desc: "Chuva real reduz o risco de ignição",
+  },
+  {
     name: "Temperatura",
-    weight: 88,
+    weight: 19,
     unit: "°C",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -17,32 +31,33 @@ const features = [
     desc: "Principal indicador de foco ativo",
   },
   {
-    name: "Vento",
-    weight: 76,
-    unit: "km/h",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M9.59 4.59A2 2 0 1111 8H2m10.59 11.41A2 2 0 1014 16H2m15.73-8.27A2.5 2.5 0 1119.5 12H2" />
-      </svg>
-    ),
-    color: "#60a5fa",
-    desc: "Velocidade e direção afetam propagação",
-  },
-  {
     name: "Umidade",
-    weight: 71,
+    weight: 19,
     unit: "%",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
         <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z" />
       </svg>
     ),
-    color: "#38bdf8",
+    color: "#60a5fa",
     desc: "Baixa umidade amplifica risco",
   },
   {
+    name: "Fumaça",
+    weight: 17,
+    unit: "ppm",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M2 12c.6-3 3-5 6-5 2.7 0 4.6 1.4 5.5 3.5C15 10 16 10 17 10c2.2 0 4 1.8 4 4s-1.8 4-4 4H5a4 4 0 01-3-6.7" />
+        <path d="M8 18v2m4-2v2" />
+      </svg>
+    ),
+    color: "#f97316",
+    desc: "ppm de fumaça do sensor MQ-2",
+  },
+  {
     name: "Dist. ao Foco",
-    weight: 65,
+    weight: 11,
     unit: "km",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -53,14 +68,53 @@ const features = [
     color: "#fbbf24",
     desc: "Proximidade a focos INPE detectados",
   },
+  {
+    name: "Vento",
+    weight: 7,
+    unit: "km/h",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M9.59 4.59A2 2 0 1111 8H2m10.59 11.41A2 2 0 1014 16H2m15.73-8.27A2.5 2.5 0 1119.5 12H2" />
+      </svg>
+    ),
+    color: "#818cf8",
+    desc: "Velocidade e direção afetam propagação",
+  },
+  {
+    name: "Densidade de Focos",
+    weight: 6,
+    unit: "focos",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <circle cx="8" cy="8" r="2" />
+        <circle cx="16" cy="8" r="2" />
+        <circle cx="12" cy="16" r="2" />
+        <path d="M8 10l4 4m4-4l-4 4" />
+      </svg>
+    ),
+    color: "#f59e0b",
+    desc: "Nº de focos INPE no raio de monitoramento",
+  },
 ];
 
-const confusionData = [
-  { label: "Verdadeiro Positivo", value: 87, color: "#4ade80" },
-  { label: "Verdadeiro Negativo", value: 91, color: "#22d3ee" },
-  { label: "Falso Positivo", value: 9, color: "#fbbf24" },
-  { label: "Falso Negativo", value: 13, color: "#f87171" },
-];
+// Real confusion matrix from metrics.json:
+// rows = real class (Baixo / Moderado / Crítico)
+// cols = predicted class (Baixo / Moderado / Crítico)
+// [[44, 3, 0], [1, 16, 0], [0, 3, 8]]
+const confusionMatrix = {
+  labels: ["Baixo", "Moderado", "Crítico"],
+  matrix: [
+    [44, 3, 0],
+    [1, 16, 0],
+    [0, 3, 8],
+  ],
+};
+
+const cellColors: Record<string, string> = {
+  diag: "#4ade80",
+  off: "#f87171",
+  zero: "transparent",
+};
 
 /** Animated bar: width goes from 0 to target when in view */
 function AnimatedBar({
@@ -98,62 +152,6 @@ function AnimatedBar({
   );
 }
 
-/** Count-up number that animates when in view */
-function CountUp({
-  target,
-  suffix = "%",
-  color,
-  delay = 0,
-}: {
-  target: number;
-  suffix?: string;
-  color: string;
-  delay?: number;
-}) {
-  const reduce = useReducedMotion();
-  const ref = useRef<HTMLSpanElement>(null);
-  const motionVal = useMotionValue(reduce ? target : 0);
-  const rounded = useTransform(motionVal, (v) => Math.round(v));
-  const inViewRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(inViewRef, { once: true, amount: 0.5 });
-
-  useEffect(() => {
-    if (inView && !reduce) {
-      const controls = animate(motionVal, target, {
-        duration: 0.9,
-        delay,
-        ease: [0.22, 1, 0.36, 1],
-      });
-      return controls.stop;
-    }
-  }, [inView, target, delay, motionVal, reduce]);
-
-  return (
-    <div ref={inViewRef}>
-      <motion.span
-        ref={ref}
-        style={{
-          fontFamily: "var(--font-bebas)",
-          fontSize: "1.8rem",
-          color,
-          letterSpacing: "0.06em",
-        }}
-      >
-        {rounded}
-      </motion.span>
-      <span
-        style={{
-          fontFamily: "var(--font-bebas)",
-          fontSize: "1.8rem",
-          color,
-          letterSpacing: "0.06em",
-        }}
-      >
-        {suffix}
-      </span>
-    </div>
-  );
-}
 
 export default function MetricasSection() {
   return (
@@ -212,7 +210,7 @@ export default function MetricasSection() {
                     userSelect: "none",
                   }}
                 >
-                  89%
+                  91%
                 </div>
 
                 <p
@@ -235,20 +233,20 @@ export default function MetricasSection() {
                     lineHeight: 1,
                   }}
                 >
-                  ~89%
+                  ~91%
                 </div>
 
                 <p
                   className="text-slate-400 mt-3"
                   style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.88rem" }}
                 >
-                  Árvore de Decisão treinado com dataset sintético + histórico INPE. Validação
-                  cruzada k=5. Resultado estável entre 87%–91% dependendo da região e época do ano.
+                  RandomForest (100 árvores) treinado sobre dados de sensores simulados com clima
+                  real da Open-Meteo (baseline) e focos do INPE. Avaliado em split único 75/25.
                 </p>
 
                 {/* Progress bar */}
                 <div className="mt-5">
-                  <AnimatedBar weight={89} color="#f97316" delay={0.2} />
+                  <AnimatedBar weight={91} color="#f97316" delay={0.2} />
                   <div className="flex justify-between mt-1">
                     <span
                       style={{
@@ -268,7 +266,7 @@ export default function MetricasSection() {
                         letterSpacing: "0.1em",
                       }}
                     >
-                      89% ← META
+                      90.7% ← RESULTADO
                     </span>
                     <span
                       style={{
@@ -284,32 +282,109 @@ export default function MetricasSection() {
                 </div>
               </div>
 
-              {/* Secondary metrics */}
-              <StaggerContainer className="grid grid-cols-2 gap-4" staggerDelay={0.1}>
-                {confusionData.map((m) => (
-                  <StaggerItem key={m.label}>
-                    <div
-                      className="p-5"
+              {/* 3x3 Confusion Matrix */}
+              <StaggerContainer staggerDelay={0.07}>
+                <StaggerItem>
+                  <div
+                    className="p-5"
+                    style={{
+                      background: "rgba(255,255,255,0.02)",
+                      border: "1px solid rgba(255,255,255,0.05)",
+                    }}
+                  >
+                    <p
+                      className="mb-3"
                       style={{
-                        background: "rgba(255,255,255,0.02)",
-                        border: "1px solid rgba(255,255,255,0.05)",
-                        borderLeft: `2px solid ${m.color}50`,
+                        fontFamily: "var(--font-share-mono)",
+                        fontSize: "0.6rem",
+                        letterSpacing: "0.12em",
+                        color: "#f97316",
                       }}
                     >
-                      <CountUp target={m.value} color={m.color} delay={0.1} />
-                      <div
-                        style={{
-                          fontFamily: "var(--font-share-mono)",
-                          fontSize: "0.6rem",
-                          letterSpacing: "0.1em",
-                          color: "#64748b",
-                        }}
-                      >
-                        {m.label.toUpperCase()}
-                      </div>
+                      MATRIZ DE CONFUSÃO (3×3)
+                    </p>
+
+                    {/* Header row: predicted labels */}
+                    <div className="flex items-center gap-1 mb-1 pl-14">
+                      {confusionMatrix.labels.map((lbl) => (
+                        <div
+                          key={lbl}
+                          className="flex-1 text-center"
+                          style={{
+                            fontFamily: "var(--font-share-mono)",
+                            fontSize: "0.52rem",
+                            color: "#64748b",
+                            letterSpacing: "0.06em",
+                          }}
+                        >
+                          {lbl}
+                        </div>
+                      ))}
                     </div>
-                  </StaggerItem>
-                ))}
+
+                    {/* Matrix rows */}
+                    {confusionMatrix.matrix.map((row, ri) => (
+                      <div key={ri} className="flex items-center gap-1 mb-1">
+                        {/* Row label (real class) */}
+                        <div
+                          className="w-14 text-right pr-2 shrink-0"
+                          style={{
+                            fontFamily: "var(--font-share-mono)",
+                            fontSize: "0.52rem",
+                            color: "#64748b",
+                            letterSpacing: "0.06em",
+                          }}
+                        >
+                          {confusionMatrix.labels[ri]}
+                        </div>
+                        {row.map((val, ci) => {
+                          const isDiag = ri === ci;
+                          const bg = isDiag
+                            ? "rgba(74,222,128,0.15)"
+                            : val > 0
+                            ? "rgba(248,113,113,0.12)"
+                            : "rgba(255,255,255,0.02)";
+                          const textColor = isDiag
+                            ? cellColors.diag
+                            : val > 0
+                            ? cellColors.off
+                            : "#334155";
+                          return (
+                            <div
+                              key={ci}
+                              className="flex-1 text-center py-2"
+                              style={{
+                                background: bg,
+                                border: isDiag
+                                  ? "1px solid rgba(74,222,128,0.25)"
+                                  : "1px solid rgba(255,255,255,0.04)",
+                                fontFamily: "var(--font-bebas)",
+                                fontSize: "1.1rem",
+                                color: textColor,
+                                letterSpacing: "0.06em",
+                                borderRadius: "2px",
+                              }}
+                            >
+                              {val}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ))}
+
+                    <p
+                      className="mt-2"
+                      style={{
+                        fontFamily: "var(--font-share-mono)",
+                        fontSize: "0.5rem",
+                        color: "#475569",
+                        letterSpacing: "0.06em",
+                      }}
+                    >
+                      linhas = real · colunas = previsto · diagonal = acertos
+                    </p>
+                  </div>
+                </StaggerItem>
               </StaggerContainer>
             </div>
           </Reveal>
@@ -409,7 +484,7 @@ export default function MetricasSection() {
                 <p className="text-slate-500">
                   <span className="text-slate-400">features</span>
                   <span className="text-slate-600"> ....... </span>
-                  <span style={{ color: "#fbbf24" }}>4 (temp, vento, umid, dist)</span>
+                  <span style={{ color: "#fbbf24" }}>7 (temp, umid, fumaça, vento, densidade, dist, precip)</span>
                 </p>
                 <p className="text-slate-500">
                   <span className="text-slate-400">classes</span>
@@ -419,7 +494,7 @@ export default function MetricasSection() {
                 <p className="text-slate-500">
                   <span className="text-slate-400">accuracy</span>
                   <span className="text-slate-600"> ....... </span>
-                  <span style={{ color: "#ef4444" }}>0.8921</span>
+                  <span style={{ color: "#ef4444" }}>0.9067</span>
                 </p>
               </div>
             </div>

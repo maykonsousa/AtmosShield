@@ -17,7 +17,7 @@ const steps = [
     title: "Sensor no Solo",
     subtitle: "ESP32 + Sensores IoT",
     description:
-      "Dispositivos ESP32 instalados em campo coletam continuamente temperatura, umidade, concentração de fumaça (MQ-2) e velocidade do vento. Os dados são transmitidos via Wi-Fi/MQTT para a API central.",
+      "Dispositivos ESP32 instalados em campo coletam continuamente temperatura, umidade e concentração de fumaça (MQ-2). Os dados são transmitidos via Wi-Fi/MQTT para a API central.",
     tags: ["ESP32", "MQ-2", "DHT22", "MQTT"],
     color: "#fbbf24",
   },
@@ -31,10 +31,10 @@ const steps = [
       </svg>
     ),
     title: "API + IA",
-    subtitle: "FastAPI · Árvore de Decisão · INPE",
+    subtitle: "FastAPI · RandomForest · INPE · Open-Meteo",
     description:
-      "A API Python recebe os dados dos sensores e os cruza com imagens de satélite do INPE e dados de vento. Um modelo Árvore de Decisão calcula a probabilidade de risco real, eliminando falsos positivos.",
-    tags: ["FastAPI", "Scikit-learn", "INPE API", "Vento"],
+      "A API Python recebe os dados dos sensores e os cruza com focos de calor do INPE e clima real (vento e precipitação) da Open-Meteo. Um modelo RandomForest calcula a probabilidade de risco real, eliminando falsos positivos.",
+    tags: ["FastAPI", "Scikit-learn", "INPE", "Open-Meteo"],
     color: "#f97316",
   },
   {

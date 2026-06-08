@@ -15,6 +15,8 @@ CREATE TABLE IF NOT EXISTS readings (
     umidade_ar REAL,
     ppm_fumaca REAL,
     vento_kmh REAL,
+    vento_fonte TEXT,
+    precipitation_mm REAL,
     densidade_focos INTEGER,
     dist_foco_km REAL,
     risco INTEGER,
@@ -25,7 +27,8 @@ CREATE TABLE IF NOT EXISTS readings (
 
 _COLUMNS = [
     "device_id", "received_at", "latitude", "longitude", "temperatura", "umidade_ar",
-    "ppm_fumaca", "vento_kmh", "densidade_focos", "dist_foco_km", "risco", "risco_label", "is_outlier",
+    "ppm_fumaca", "vento_kmh", "vento_fonte", "precipitation_mm",
+    "densidade_focos", "dist_foco_km", "risco", "risco_label", "is_outlier",
 ]
 
 

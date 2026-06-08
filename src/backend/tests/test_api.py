@@ -1,6 +1,15 @@
 import pytest
 from fastapi.testclient import TestClient
 
+import src.backend.app.services.scoring as scoring
+from src.backend.app.services.weather import WeatherObservation
+
+
+@pytest.fixture(autouse=True)
+def _mock_weather(monkeypatch):
+    monkeypatch.setattr(scoring, "get_weather",
+                        lambda lat, lon, when=None: WeatherObservation(wind_kmh=22.0, precipitation_mm=0.0, soil_moisture=0.12, fonte="open-meteo"))
+
 
 @pytest.fixture
 def client(tmp_path, monkeypatch):
@@ -32,6 +41,8 @@ def test_post_reading_valida_e_classifica(client):
     assert body["risco"] in {0, 1, 2}
     assert body["risco_label"] in {"Baixo", "Moderado", "Critico"}
     assert "vento_kmh" in body and "received_at" in body
+    assert "precipitation_mm" in body and isinstance(body["precipitation_mm"], float)
+    assert body["vento_fonte"] in {"open-meteo", "cache", "estimado"}
 
 
 def test_post_reading_api_key_invalida_retorna_401(client):

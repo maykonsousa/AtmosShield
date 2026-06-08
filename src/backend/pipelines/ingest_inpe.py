@@ -10,7 +10,7 @@ def load_inpe(path: str) -> pd.DataFrame:
     df["datahora_gmt"] = pd.to_datetime(df["datahora_gmt"], errors="coerce")
     for col in NUMERIC_COLS:
         df[col] = pd.to_numeric(df[col], errors="coerce")
-    df = df.dropna(subset=["latitude", "longitude"]).reset_index(drop=True)
+    df = df.dropna(subset=["latitude", "longitude", "datahora_gmt"]).reset_index(drop=True)
     return df
 
 

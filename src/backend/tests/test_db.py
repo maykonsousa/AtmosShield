@@ -6,7 +6,8 @@ def _alert(device_id="ESP32-PRIV-092", temperatura=44.0, ppm_fumaca=420.0, is_ou
         "device_id": device_id, "received_at": "2026-06-05T12:00:00+00:00",
         "latitude": -3.4712, "longitude": -52.3812,
         "temperatura": temperatura, "umidade_ar": 16.0, "ppm_fumaca": ppm_fumaca,
-        "vento_kmh": 22.0, "densidade_focos": 2, "dist_foco_km": 1.5,
+        "vento_kmh": 22.0, "vento_fonte": "open-meteo", "precipitation_mm": 0.12,
+        "densidade_focos": 2, "dist_foco_km": 1.5,
         "risco": 2, "risco_label": "Critico", "is_outlier": is_outlier,
     }
 

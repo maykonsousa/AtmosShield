@@ -22,7 +22,8 @@ def test_payload_incompleto_falha():
 def test_risk_alert_out_aceita_contrato_completo():
     a = RiskAlertOut(
         device_id="d", latitude=-3.4, longitude=-52.3, temperatura=40.0, umidade_ar=20.0,
-        ppm_fumaca=300.0, vento_kmh=22.0, densidade_focos=2, dist_foco_km=1.5,
+        ppm_fumaca=300.0, vento_kmh=22.0, vento_fonte="open-meteo", precipitation_mm=0.12,
+        densidade_focos=2, dist_foco_km=1.5,
         risco=2, risco_label="Critico", is_outlier=False, received_at="2026-06-05T12:00:00+00:00",
     )
     assert a.risco_label == "Critico"
