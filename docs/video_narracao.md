@@ -10,8 +10,10 @@
 `[TELA: slide/landing com o nome AtmosShield e os 4 integrantes]`
 
 > "Olá! Somos o grupo do projeto **AtmosShield**, da Global Solution 2026.1 da FIAP.
-> Integrantes: Matheus de França Fantini, Maykon Eduardo Pereira de Sousa,
-> Heleno Madeira Pereira e Samantha Silva Farias.
+> Integrantes:
+> Matheus Fantini
+> Heleno Madeira
+> Samantha Farias.
 > E nós **QUEREMOS CONCORRER**.
 > Nos próximos cinco minutos a gente mostra como usar tecnologia espacial pra
 > proteger a Terra do fogo — do satélite no céu ao sensor no chão."
