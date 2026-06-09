@@ -10,7 +10,8 @@
     "precipitation_mm": 1.87,
     "densidade_focos": 1,
     "risco": 2,
-    "risco_label": "Critico"
+    "risco_label": "Critico",
+    "received_at": "2026-06-09T12:48:00Z"
   },
   {
     "device_id": "ESP32-SIM-001",
@@ -23,7 +24,8 @@
     "precipitation_mm": 0.1,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T11:41:00Z"
   },
   {
     "device_id": "ESP32-SIM-002",
@@ -36,7 +38,8 @@
     "precipitation_mm": 1.74,
     "densidade_focos": 2,
     "risco": 2,
-    "risco_label": "Critico"
+    "risco_label": "Critico",
+    "received_at": "2026-06-09T12:46:00Z"
   },
   {
     "device_id": "ESP32-SIM-003",
@@ -49,7 +52,8 @@
     "precipitation_mm": 12.28,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T11:39:00Z"
   },
   {
     "device_id": "ESP32-SIM-004",
@@ -62,7 +66,8 @@
     "precipitation_mm": 0.95,
     "densidade_focos": 2,
     "risco": 2,
-    "risco_label": "Critico"
+    "risco_label": "Critico",
+    "received_at": "2026-06-09T12:44:00Z"
   },
   {
     "device_id": "ESP32-SIM-005",
@@ -75,7 +80,8 @@
     "precipitation_mm": 0.0,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T11:37:00Z"
   },
   {
     "device_id": "ESP32-SIM-006",
@@ -88,7 +94,8 @@
     "precipitation_mm": 0.58,
     "densidade_focos": 2,
     "risco": 1,
-    "risco_label": "Moderado"
+    "risco_label": "Moderado",
+    "received_at": "2026-06-09T12:11:00Z"
   },
   {
     "device_id": "ESP32-SIM-007",
@@ -101,7 +108,8 @@
     "precipitation_mm": 0.0,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T11:35:00Z"
   },
   {
     "device_id": "ESP32-SIM-008",
@@ -114,7 +122,8 @@
     "precipitation_mm": 3.42,
     "densidade_focos": 2,
     "risco": 2,
-    "risco_label": "Critico"
+    "risco_label": "Critico",
+    "received_at": "2026-06-09T12:42:00Z"
   },
   {
     "device_id": "ESP32-SIM-009",
@@ -127,7 +136,8 @@
     "precipitation_mm": 15.91,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T11:33:00Z"
   },
   {
     "device_id": "ESP32-SIM-010",
@@ -140,7 +150,8 @@
     "precipitation_mm": 3.91,
     "densidade_focos": 3,
     "risco": 2,
-    "risco_label": "Critico"
+    "risco_label": "Critico",
+    "received_at": "2026-06-09T12:40:00Z"
   },
   {
     "device_id": "ESP32-SIM-011",
@@ -153,7 +164,8 @@
     "precipitation_mm": 0.0,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T11:31:00Z"
   },
   {
     "device_id": "ESP32-SIM-012",
@@ -166,7 +178,8 @@
     "precipitation_mm": 22.56,
     "densidade_focos": 3,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T11:29:00Z"
   },
   {
     "device_id": "ESP32-SIM-013",
@@ -179,7 +192,8 @@
     "precipitation_mm": 0.0,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T11:27:00Z"
   },
   {
     "device_id": "ESP32-SIM-014",
@@ -192,7 +206,8 @@
     "precipitation_mm": 2.11,
     "densidade_focos": 2,
     "risco": 2,
-    "risco_label": "Critico"
+    "risco_label": "Critico",
+    "received_at": "2026-06-09T12:38:00Z"
   },
   {
     "device_id": "ESP32-SIM-015",
@@ -205,7 +220,8 @@
     "precipitation_mm": 0.0,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T11:25:00Z"
   },
   {
     "device_id": "ESP32-SIM-016",
@@ -218,7 +234,8 @@
     "precipitation_mm": 0.91,
     "densidade_focos": 1,
     "risco": 1,
-    "risco_label": "Moderado"
+    "risco_label": "Moderado",
+    "received_at": "2026-06-09T12:09:00Z"
   },
   {
     "device_id": "ESP32-SIM-017",
@@ -231,7 +248,8 @@
     "precipitation_mm": 8.97,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T11:23:00Z"
   },
   {
     "device_id": "ESP32-SIM-018",
@@ -244,7 +262,8 @@
     "precipitation_mm": 1.95,
     "densidade_focos": 3,
     "risco": 2,
-    "risco_label": "Critico"
+    "risco_label": "Critico",
+    "received_at": "2026-06-09T12:36:00Z"
   },
   {
     "device_id": "ESP32-SIM-019",
@@ -257,7 +276,8 @@
     "precipitation_mm": 0.0,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T11:21:00Z"
   },
   {
     "device_id": "ESP32-SIM-020",
@@ -270,7 +290,8 @@
     "precipitation_mm": 27.77,
     "densidade_focos": 1,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T11:19:00Z"
   },
   {
     "device_id": "ESP32-SIM-021",
@@ -283,7 +304,8 @@
     "precipitation_mm": 0.1,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T11:17:00Z"
   },
   {
     "device_id": "ESP32-SIM-022",
@@ -296,7 +318,8 @@
     "precipitation_mm": 2.85,
     "densidade_focos": 3,
     "risco": 1,
-    "risco_label": "Moderado"
+    "risco_label": "Moderado",
+    "received_at": "2026-06-09T12:07:00Z"
   },
   {
     "device_id": "ESP32-SIM-023",
@@ -309,7 +332,8 @@
     "precipitation_mm": 0.0,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T11:15:00Z"
   },
   {
     "device_id": "ESP32-SIM-024",
@@ -322,7 +346,8 @@
     "precipitation_mm": 0.62,
     "densidade_focos": 1,
     "risco": 2,
-    "risco_label": "Critico"
+    "risco_label": "Critico",
+    "received_at": "2026-06-09T12:34:00Z"
   },
   {
     "device_id": "ESP32-SIM-025",
@@ -335,7 +360,8 @@
     "precipitation_mm": 21.0,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T11:13:00Z"
   },
   {
     "device_id": "ESP32-SIM-026",
@@ -348,7 +374,8 @@
     "precipitation_mm": 19.24,
     "densidade_focos": 2,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T11:11:00Z"
   },
   {
     "device_id": "ESP32-SIM-027",
@@ -361,7 +388,8 @@
     "precipitation_mm": 9.8,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T11:09:00Z"
   },
   {
     "device_id": "ESP32-SIM-028",
@@ -374,7 +402,8 @@
     "precipitation_mm": 2.17,
     "densidade_focos": 1,
     "risco": 2,
-    "risco_label": "Critico"
+    "risco_label": "Critico",
+    "received_at": "2026-06-09T12:32:00Z"
   },
   {
     "device_id": "ESP32-SIM-029",
@@ -387,7 +416,8 @@
     "precipitation_mm": 25.0,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T11:07:00Z"
   },
   {
     "device_id": "ESP32-SIM-030",
@@ -400,7 +430,8 @@
     "precipitation_mm": 1.95,
     "densidade_focos": 1,
     "risco": 2,
-    "risco_label": "Critico"
+    "risco_label": "Critico",
+    "received_at": "2026-06-09T12:30:00Z"
   },
   {
     "device_id": "ESP32-SIM-031",
@@ -413,7 +444,8 @@
     "precipitation_mm": 17.97,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T11:05:00Z"
   },
   {
     "device_id": "ESP32-SIM-032",
@@ -426,7 +458,8 @@
     "precipitation_mm": 25.72,
     "densidade_focos": 2,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T11:03:00Z"
   },
   {
     "device_id": "ESP32-SIM-033",
@@ -439,7 +472,8 @@
     "precipitation_mm": 19.63,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T11:01:00Z"
   },
   {
     "device_id": "ESP32-SIM-034",
@@ -452,7 +486,8 @@
     "precipitation_mm": 2.75,
     "densidade_focos": 2,
     "risco": 1,
-    "risco_label": "Moderado"
+    "risco_label": "Moderado",
+    "received_at": "2026-06-09T12:05:00Z"
   },
   {
     "device_id": "ESP32-SIM-035",
@@ -465,7 +500,8 @@
     "precipitation_mm": 0.0,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:59:00Z"
   },
   {
     "device_id": "ESP32-SIM-036",
@@ -478,7 +514,8 @@
     "precipitation_mm": 1.36,
     "densidade_focos": 3,
     "risco": 1,
-    "risco_label": "Moderado"
+    "risco_label": "Moderado",
+    "received_at": "2026-06-09T12:03:00Z"
   },
   {
     "device_id": "ESP32-SIM-037",
@@ -491,7 +528,8 @@
     "precipitation_mm": 0.0,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:57:00Z"
   },
   {
     "device_id": "ESP32-SIM-038",
@@ -504,7 +542,8 @@
     "precipitation_mm": 24.37,
     "densidade_focos": 1,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:55:00Z"
   },
   {
     "device_id": "ESP32-SIM-039",
@@ -517,7 +556,8 @@
     "precipitation_mm": 0.0,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:53:00Z"
   },
   {
     "device_id": "ESP32-SIM-040",
@@ -530,7 +570,8 @@
     "precipitation_mm": 1.85,
     "densidade_focos": 1,
     "risco": 2,
-    "risco_label": "Critico"
+    "risco_label": "Critico",
+    "received_at": "2026-06-09T12:28:00Z"
   },
   {
     "device_id": "ESP32-SIM-041",
@@ -543,7 +584,8 @@
     "precipitation_mm": 0.1,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:51:00Z"
   },
   {
     "device_id": "ESP32-SIM-042",
@@ -556,7 +598,8 @@
     "precipitation_mm": 0.08,
     "densidade_focos": 2,
     "risco": 2,
-    "risco_label": "Critico"
+    "risco_label": "Critico",
+    "received_at": "2026-06-09T12:26:00Z"
   },
   {
     "device_id": "ESP32-SIM-043",
@@ -569,7 +612,8 @@
     "precipitation_mm": 20.88,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:49:00Z"
   },
   {
     "device_id": "ESP32-SIM-044",
@@ -582,7 +626,8 @@
     "precipitation_mm": 2.17,
     "densidade_focos": 2,
     "risco": 1,
-    "risco_label": "Moderado"
+    "risco_label": "Moderado",
+    "received_at": "2026-06-09T12:01:00Z"
   },
   {
     "device_id": "ESP32-SIM-045",
@@ -595,7 +640,8 @@
     "precipitation_mm": 0.0,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:47:00Z"
   },
   {
     "device_id": "ESP32-SIM-046",
@@ -608,7 +654,8 @@
     "precipitation_mm": 0.05,
     "densidade_focos": 2,
     "risco": 1,
-    "risco_label": "Moderado"
+    "risco_label": "Moderado",
+    "received_at": "2026-06-09T11:59:00Z"
   },
   {
     "device_id": "ESP32-SIM-047",
@@ -621,7 +668,8 @@
     "precipitation_mm": 0.0,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:45:00Z"
   },
   {
     "device_id": "ESP32-SIM-048",
@@ -634,7 +682,8 @@
     "precipitation_mm": 17.87,
     "densidade_focos": 2,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:43:00Z"
   },
   {
     "device_id": "ESP32-SIM-049",
@@ -647,7 +696,8 @@
     "precipitation_mm": 0.0,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:41:00Z"
   },
   {
     "device_id": "ESP32-SIM-050",
@@ -660,7 +710,8 @@
     "precipitation_mm": 3.96,
     "densidade_focos": 3,
     "risco": 1,
-    "risco_label": "Moderado"
+    "risco_label": "Moderado",
+    "received_at": "2026-06-09T11:57:00Z"
   },
   {
     "device_id": "ESP32-SIM-051",
@@ -673,7 +724,8 @@
     "precipitation_mm": 0.1,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:39:00Z"
   },
   {
     "device_id": "ESP32-SIM-052",
@@ -686,7 +738,8 @@
     "precipitation_mm": 24.73,
     "densidade_focos": 3,
     "risco": 1,
-    "risco_label": "Moderado"
+    "risco_label": "Moderado",
+    "received_at": "2026-06-09T11:55:00Z"
   },
   {
     "device_id": "ESP32-SIM-053",
@@ -699,7 +752,8 @@
     "precipitation_mm": 16.78,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:37:00Z"
   },
   {
     "device_id": "ESP32-SIM-054",
@@ -712,7 +766,8 @@
     "precipitation_mm": 28.19,
     "densidade_focos": 3,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:35:00Z"
   },
   {
     "device_id": "ESP32-SIM-055",
@@ -725,7 +780,8 @@
     "precipitation_mm": 24.07,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:33:00Z"
   },
   {
     "device_id": "ESP32-SIM-056",
@@ -738,7 +794,8 @@
     "precipitation_mm": 15.38,
     "densidade_focos": 2,
     "risco": 1,
-    "risco_label": "Moderado"
+    "risco_label": "Moderado",
+    "received_at": "2026-06-09T11:53:00Z"
   },
   {
     "device_id": "ESP32-SIM-057",
@@ -751,7 +808,8 @@
     "precipitation_mm": 0.0,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:31:00Z"
   },
   {
     "device_id": "ESP32-SIM-058",
@@ -764,7 +822,8 @@
     "precipitation_mm": 0.2,
     "densidade_focos": 3,
     "risco": 2,
-    "risco_label": "Critico"
+    "risco_label": "Critico",
+    "received_at": "2026-06-09T12:24:00Z"
   },
   {
     "device_id": "ESP32-SIM-059",
@@ -777,7 +836,8 @@
     "precipitation_mm": 25.08,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:29:00Z"
   },
   {
     "device_id": "ESP32-SIM-060",
@@ -790,7 +850,8 @@
     "precipitation_mm": 1.51,
     "densidade_focos": 1,
     "risco": 1,
-    "risco_label": "Moderado"
+    "risco_label": "Moderado",
+    "received_at": "2026-06-09T11:51:00Z"
   },
   {
     "device_id": "ESP32-SIM-061",
@@ -803,7 +864,8 @@
     "precipitation_mm": 9.64,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:27:00Z"
   },
   {
     "device_id": "ESP32-SIM-062",
@@ -816,7 +878,8 @@
     "precipitation_mm": 1.41,
     "densidade_focos": 2,
     "risco": 2,
-    "risco_label": "Critico"
+    "risco_label": "Critico",
+    "received_at": "2026-06-09T12:22:00Z"
   },
   {
     "device_id": "ESP32-SIM-063",
@@ -829,7 +892,8 @@
     "precipitation_mm": 11.31,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:25:00Z"
   },
   {
     "device_id": "ESP32-SIM-064",
@@ -842,7 +906,8 @@
     "precipitation_mm": 2.23,
     "densidade_focos": 3,
     "risco": 2,
-    "risco_label": "Critico"
+    "risco_label": "Critico",
+    "received_at": "2026-06-09T12:20:00Z"
   },
   {
     "device_id": "ESP32-SIM-065",
@@ -855,7 +920,8 @@
     "precipitation_mm": 0.0,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:23:00Z"
   },
   {
     "device_id": "ESP32-SIM-066",
@@ -868,7 +934,8 @@
     "precipitation_mm": 19.88,
     "densidade_focos": 3,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:21:00Z"
   },
   {
     "device_id": "ESP32-SIM-067",
@@ -881,7 +948,8 @@
     "precipitation_mm": 10.67,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:19:00Z"
   },
   {
     "device_id": "ESP32-SIM-068",
@@ -894,7 +962,8 @@
     "precipitation_mm": 3.71,
     "densidade_focos": 2,
     "risco": 1,
-    "risco_label": "Moderado"
+    "risco_label": "Moderado",
+    "received_at": "2026-06-09T11:49:00Z"
   },
   {
     "device_id": "ESP32-SIM-069",
@@ -907,7 +976,8 @@
     "precipitation_mm": 0.0,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:17:00Z"
   },
   {
     "device_id": "ESP32-SIM-070",
@@ -920,7 +990,8 @@
     "precipitation_mm": 2.92,
     "densidade_focos": 2,
     "risco": 1,
-    "risco_label": "Moderado"
+    "risco_label": "Moderado",
+    "received_at": "2026-06-09T11:47:00Z"
   },
   {
     "device_id": "ESP32-SIM-071",
@@ -933,7 +1004,8 @@
     "precipitation_mm": 0.0,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:15:00Z"
   },
   {
     "device_id": "ESP32-SIM-072",
@@ -946,7 +1018,8 @@
     "precipitation_mm": 0.91,
     "densidade_focos": 1,
     "risco": 1,
-    "risco_label": "Moderado"
+    "risco_label": "Moderado",
+    "received_at": "2026-06-09T11:45:00Z"
   },
   {
     "device_id": "ESP32-SIM-073",
@@ -959,7 +1032,8 @@
     "precipitation_mm": 0.0,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:13:00Z"
   },
   {
     "device_id": "ESP32-SIM-074",
@@ -972,7 +1046,8 @@
     "precipitation_mm": 15.8,
     "densidade_focos": 1,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:11:00Z"
   },
   {
     "device_id": "ESP32-SIM-075",
@@ -985,7 +1060,8 @@
     "precipitation_mm": 0.0,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:09:00Z"
   },
   {
     "device_id": "ESP32-SIM-076",
@@ -998,7 +1074,8 @@
     "precipitation_mm": 18.01,
     "densidade_focos": 2,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:07:00Z"
   },
   {
     "device_id": "ESP32-SIM-077",
@@ -1011,7 +1088,8 @@
     "precipitation_mm": 20.28,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:05:00Z"
   },
   {
     "device_id": "ESP32-SIM-078",
@@ -1024,7 +1102,8 @@
     "precipitation_mm": 3.51,
     "densidade_focos": 3,
     "risco": 1,
-    "risco_label": "Moderado"
+    "risco_label": "Moderado",
+    "received_at": "2026-06-09T11:43:00Z"
   },
   {
     "device_id": "ESP32-SIM-079",
@@ -1037,6 +1116,7 @@
     "precipitation_mm": 0.1,
     "densidade_focos": 0,
     "risco": 0,
-    "risco_label": "Baixo"
+    "risco_label": "Baixo",
+    "received_at": "2026-06-09T10:03:00Z"
   }
 ]

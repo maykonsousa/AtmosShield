@@ -1,5 +1,6 @@
 """Inferência em lote: classifica leituras e escreve data/alerts.json."""
 import json
+from datetime import datetime, timedelta, timezone
 
 import joblib
 import pandas as pd
@@ -30,6 +31,12 @@ def run_batch(model, df: pd.DataFrame) -> list[dict]:
                 "risco_label": RISK_LABELS[risco],
             }
         )
+    # horário de registro simulado: críticos mais recentes, demais afastando no tempo
+    base = datetime.now(timezone.utc).replace(second=0, microsecond=0)
+    for rank, i in enumerate(sorted(range(len(alerts)), key=lambda j: alerts[j]["risco"], reverse=True)):
+        minutos = 1 + rank * 2 if alerts[i]["risco"] == 2 else 8 + rank * 2
+        ts = base - timedelta(minutes=minutos)
+        alerts[i]["received_at"] = ts.isoformat().replace("+00:00", "Z")
     return alerts
 
 
