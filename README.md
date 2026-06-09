@@ -24,7 +24,7 @@ Tecnologia espacial a serviço da Terra: o satélite é o "olho no céu", o ESP3
 ## 📁 Estrutura de pastas
 
 - **data/** — dados de focos do INPE (amostra) e alertas gerados (`alerts.json`).
-- **docs/** — documentação, diagramas, imagens (mapa de calor + gráficos) e roteiro do vídeo.
+- **docs/** — documentação, diagramas e imagens (mapa de calor + gráficos).
 - **src/backend/** — núcleo Python: ingestão (Pandas), simulação, modelo de ML (scikit-learn) e API (FastAPI + SQLite).
 - **src/analysis/** — geração das visualizações (Folium + Seaborn/Matplotlib).
 - **src/iot/wokwi/** — firmware do nó ESP32 (DHT22 + MQ-2) simulado no Wokwi.
