@@ -53,6 +53,15 @@ export default function ClimaRegiaoWidget() {
   }, []);
 
   useEffect(() => {
+    // Override por URL (?lat=&lon=) — útil para apresentações/demo: força uma região
+    // específica sem depender da geolocalização do navegador.
+    const sp = new URLSearchParams(window.location.search);
+    const qLat = sp.get("lat");
+    const qLon = sp.get("lon");
+    if (qLat !== null && qLon !== null && Number.isFinite(Number(qLat)) && Number.isFinite(Number(qLon))) {
+      buscar(Number(qLat), Number(qLon));
+      return;
+    }
     if (typeof navigator === "undefined" || !("geolocation" in navigator)) {
       setTimeout(() => buscar(), 0);
       return;

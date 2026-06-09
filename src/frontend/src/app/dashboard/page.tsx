@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import type { Alerta } from "@/components/MapaRisco";
@@ -85,6 +85,19 @@ const KPI_CONFIG = [
   },
 ];
 
+function tempoRelativo(iso?: string): string | null {
+  if (!iso) return null;
+  const t = new Date(iso).getTime();
+  if (Number.isNaN(t)) return null;
+  const seg = Math.max(0, Math.round((Date.now() - t) / 1000));
+  if (seg < 60) return "agora há pouco";
+  const min = Math.round(seg / 60);
+  if (min < 60) return `há ${min} min`;
+  const h = Math.round(min / 60);
+  if (h < 24) return `há ${h} h`;
+  return `há ${Math.round(h / 24)} d`;
+}
+
 export default function DashboardPage() {
   const [alertas, setAlertas] = useState<Alerta[]>([]);
   const [loaded, setLoaded] = useState(false);
@@ -109,6 +122,27 @@ export default function DashboardPage() {
   }, [alertas]);
 
   const criticos = alertas.filter((a) => a.risco === 2);
+
+  // filtro do mapa por nível de risco (null = todos); controlado pelos KPIs
+  const [filtro, setFiltro] = useState<string | null>(null);
+  const alertasFiltrados = useMemo(
+    () => (filtro ? alertas.filter((a) => a.risco_label === filtro) : alertas),
+    [alertas, filtro]
+  );
+
+  // foco do mapa: ao clicar num alerta crítico, o mapa voa até o sensor
+  const [foco, setFoco] = useState<[number, number] | null>(null);
+
+  // seleção bidirecional card<->mapa: id estável do alerta selecionado
+  const [selecionado, setSelecionado] = useState<string | null>(null);
+  const cardsRef = useRef<Record<string, HTMLButtonElement | null>>({});
+  const idDe = (a: Alerta) => `${a.device_id}@${a.latitude},${a.longitude}`;
+
+  // ao clicar num sensor no mapa, rola até o card correspondente na lista
+  useEffect(() => {
+    if (!selecionado) return;
+    cardsRef.current[selecionado]?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  }, [selecionado]);
 
   return (
     <main
@@ -253,15 +287,22 @@ export default function DashboardPage() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
             {KPI_CONFIG.map((cfg) => {
               const value = stats[cfg.key as keyof typeof stats] ?? 0;
+              const isTotal = cfg.key === "total";
+              const ativo = isTotal ? filtro === null : filtro === cfg.key;
               return (
-                <div
+                <button
                   key={cfg.key}
-                  className="glass-card relative overflow-hidden"
+                  type="button"
+                  onClick={() => setFiltro(isTotal ? null : filtro === cfg.key ? null : cfg.key)}
+                  aria-pressed={ativo}
+                  title={isTotal ? "Mostrar todos os nós no mapa" : `Filtrar mapa: ${cfg.label}`}
+                  className="glass-card relative overflow-hidden text-left transition-all duration-200 cursor-pointer"
                   style={{
                     background: cfg.bg,
-                    border: `1px solid ${cfg.border}`,
+                    border: `1px solid ${ativo ? cfg.color : cfg.border}`,
                     padding: "1rem 1.25rem",
-                    boxShadow: `0 0 20px ${cfg.glow}`,
+                    boxShadow: ativo ? `0 0 0 1px ${cfg.color}, 0 0 24px ${cfg.glow}` : `0 0 20px ${cfg.glow}`,
+                    transform: ativo ? "translateY(-2px)" : "none",
                   }}
                 >
                   {/* Decorative corner accent */}
@@ -309,7 +350,7 @@ export default function DashboardPage() {
                   >
                     {cfg.label}
                   </div>
-                </div>
+                </button>
               );
             })}
           </div>
@@ -347,44 +388,71 @@ export default function DashboardPage() {
                     }}
                   >
                     DISTRIBUIÇÃO GEOGRÁFICA · BRASIL
+                    {filtro && (
+                      <span style={{ color: "#94a3b8" }}>
+                        {"  ·  FILTRO: "}
+                        {filtro.toUpperCase()} ({alertasFiltrados.length})
+                      </span>
+                    )}
                   </span>
                 </div>
 
-                {/* Legend */}
-                <div className="flex items-center gap-4">
+                {/* Legend — também funciona como filtro (sincronizada com os KPIs) */}
+                <div className="flex items-center gap-3">
                   {[
-                    { color: "#22c55e", label: "Baixo" },
-                    { color: "#f59e0b", label: "Moderado" },
-                    { color: "#ef4444", label: "Crítico" },
-                  ].map((l) => (
-                    <div key={l.label} className="flex items-center gap-1.5">
-                      <div
+                    { color: "#22c55e", label: "Baixo", key: "Baixo" },
+                    { color: "#f59e0b", label: "Moderado", key: "Moderado" },
+                    { color: "#ef4444", label: "Crítico", key: "Critico" },
+                  ].map((l) => {
+                    const ativo = filtro === l.key;
+                    return (
+                      <button
+                        key={l.key}
+                        type="button"
+                        onClick={() => setFiltro(filtro === l.key ? null : l.key)}
+                        aria-pressed={ativo}
+                        title={`Filtrar mapa: ${l.label}`}
+                        className="flex items-center gap-1.5 transition-all duration-200 cursor-pointer"
                         style={{
-                          width: "8px",
-                          height: "8px",
-                          borderRadius: "50%",
-                          background: l.color,
-                          boxShadow: `0 0 6px ${l.color}`,
-                        }}
-                      />
-                      <span
-                        style={{
-                          fontFamily: "var(--font-share-mono)",
-                          fontSize: "0.55rem",
-                          letterSpacing: "0.08em",
-                          color: "#64748b",
+                          padding: "3px 7px",
+                          borderRadius: "999px",
+                          border: `1px solid ${ativo ? l.color : "transparent"}`,
+                          background: ativo ? `${l.color}1a` : "transparent",
+                          opacity: filtro && !ativo ? 0.45 : 1,
                         }}
                       >
-                        {l.label}
-                      </span>
-                    </div>
-                  ))}
+                        <div
+                          style={{
+                            width: "8px",
+                            height: "8px",
+                            borderRadius: "50%",
+                            background: l.color,
+                            boxShadow: `0 0 6px ${l.color}`,
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontFamily: "var(--font-share-mono)",
+                            fontSize: "0.55rem",
+                            letterSpacing: "0.08em",
+                            color: ativo ? l.color : "#64748b",
+                          }}
+                        >
+                          {l.label}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
               {/* Map container — explicit height required for Leaflet */}
               <div style={{ height: "70vh", minHeight: "400px", flex: 1 }}>
-                <MapaRisco alertas={alertas} />
+                <MapaRisco
+                  alertas={alertasFiltrados}
+                  foco={foco}
+                  onSelecionar={(a) => setSelecionado(idDe(a))}
+                />
               </div>
             </div>
 
@@ -453,19 +521,35 @@ export default function DashboardPage() {
                   </div>
                 )}
 
-                {criticos.map((alerta, idx) => (
-                  <div
+                {criticos.map((alerta, idx) => {
+                  const id = idDe(alerta);
+                  const focado = selecionado === id;
+                  return (
+                  <button
+                    type="button"
                     key={`${alerta.device_id}-${idx}`}
-                    className="group relative"
+                    ref={(el) => {
+                      cardsRef.current[id] = el;
+                    }}
+                    onClick={() => {
+                      setFoco([alerta.latitude, alerta.longitude]);
+                      setSelecionado(id);
+                    }}
+                    title="Centralizar este sensor no mapa"
+                    className="group relative block w-full text-left cursor-pointer transition-colors duration-200"
                     style={{
                       borderBottom: "1px solid rgba(255,255,255,0.04)",
                       padding: "0.875rem 1rem",
+                      background: focado ? "rgba(239,68,68,0.07)" : "transparent",
                     }}
                   >
                     {/* Left accent bar */}
                     <div
-                      className="absolute left-0 top-0 bottom-0 w-0.5"
-                      style={{ background: "linear-gradient(to bottom, #ef4444, rgba(239,68,68,0.2))" }}
+                      className="absolute left-0 top-0 bottom-0"
+                      style={{
+                        width: focado ? "3px" : "2px",
+                        background: "linear-gradient(to bottom, #ef4444, rgba(239,68,68,0.2))",
+                      }}
                     />
 
                     {/* Hover bg */}
@@ -497,6 +581,30 @@ export default function DashboardPage() {
                       >
                         {alerta.risco_label.toUpperCase()}
                       </span>
+                    </div>
+
+                    {/* Localização + horário do registro */}
+                    <div
+                      className="relative flex items-center justify-between gap-2 mb-2"
+                      style={{
+                        fontFamily: "var(--font-share-mono)",
+                        fontSize: "0.55rem",
+                        letterSpacing: "0.06em",
+                        color: "#64748b",
+                      }}
+                    >
+                      <span>
+                        ◉ {alerta.latitude.toFixed(3)}, {alerta.longitude.toFixed(3)}
+                      </span>
+                      {tempoRelativo(alerta.received_at) && (
+                        <span className="flex items-center gap-1" style={{ color: "#94a3b8" }}>
+                          <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <circle cx="12" cy="12" r="9" />
+                            <path d="M12 7v5l3 2" />
+                          </svg>
+                          {tempoRelativo(alerta.received_at)}
+                        </span>
+                      )}
                     </div>
 
                     <div className="relative grid grid-cols-2 gap-2">
@@ -562,8 +670,9 @@ export default function DashboardPage() {
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  </button>
+                  );
+                })}
               </div>
 
               {/* Panel footer */}

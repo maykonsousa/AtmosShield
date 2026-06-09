@@ -1,4 +1,5 @@
 "use client";
+import { Fragment } from "react";
 import { Reveal, StaggerContainer, StaggerItem } from "./Reveal";
 
 const archNodes = [
@@ -219,8 +220,8 @@ export default function ArquiteturaSection() {
                 delayStart={0.1}
               >
                 {processingNodes.map((node, i) => (
-                  <>
-                    <StaggerItem key={node.id} className="flex-1">
+                  <Fragment key={node.id}>
+                    <StaggerItem className="flex-1">
                       <div
                         className="arch-node h-full p-5 flex flex-col items-center text-center gap-2"
                         style={{ borderColor: `${node.color}20` }}
@@ -257,7 +258,7 @@ export default function ArquiteturaSection() {
                       </div>
                     </StaggerItem>
                     {i < processingNodes.length - 1 && (
-                      <div className="flex items-center px-3" key={`arrow-${i}`}>
+                      <div className="flex items-center px-3">
                         <svg
                           width="16"
                           height="16"
@@ -270,7 +271,7 @@ export default function ArquiteturaSection() {
                         </svg>
                       </div>
                     )}
-                  </>
+                  </Fragment>
                 ))}
               </StaggerContainer>
             </div>
