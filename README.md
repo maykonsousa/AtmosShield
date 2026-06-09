@@ -71,8 +71,8 @@ A variável de ambiente `ATMOSSHIELD_DB` aponta o SQLite para um arquivo alterna
 
 ## 📎 Links
 
-- **Repositório:** <LINK DO REPOSITÓRIO>
-- **Vídeo demonstrativo (YouTube, não listado):** <LINK DO VÍDEO>
+- **Repositório:** https://github.com/maykonsousa/AtmosShield
+- **Vídeo demonstrativo (YouTube):** https://www.youtube.com/watch?v=aOPcbTBA3nE
 
 ## 📋 Observações
 
