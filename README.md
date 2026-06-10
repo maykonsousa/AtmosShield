@@ -1,12 +1,20 @@
-# AtmosShield — Prevenção e Alerta de Queimadas via Telemetria e Satélite
+# FIAP - Faculdade de Informática e Administração Paulista
+
+<p align="center">
+<a href= "https://www.fiap.com.br/"><img src="docs/images/logo-fiap.png" alt="FIAP - Faculdade de Informática e Admnistração Paulista" border="0" width=40% height=40%></a>
+</p>
+
+<br>
+
+# 🛰️ AtmosShield — Prevenção e Alerta de Queimadas via Telemetria e Satélite
 
 ## FIAP — Global Solution 2026.1
 
 ### 👨‍🎓 Integrantes
-- Matheus de França Fantini
-- Maykon Eduardo Pereira de Sousa
-- Heleno Madeira Pereira
-- Samantha Silva Farias
+* Heleno Madeira RM570302
+* Matheus Fantini RM574078
+* Maykon Souza RM574011
+* Samanta Silva RM574120
 
 > **QUERO CONCORRER**
 
@@ -72,7 +80,7 @@ A variável de ambiente `ATMOSSHIELD_DB` aponta o SQLite para um arquivo alterna
 ## 📎 Links
 
 - **Repositório:** [Acesse o link do repositório](https://github.com/maykonsousa/AtmosShield)
-- **Vídeo demonstrativo (YouTube):** https://www.youtube.com/watch?v=aOPcbTBA3nE
+- **Vídeo demonstrativo (YouTube):** [Acesse o link da apresentação - Youtube](https://youtu.be/aOPcbTBA3nE?si=oDXZKyE-iQkG7YtM)
 
 ## 📋 Observações
 
